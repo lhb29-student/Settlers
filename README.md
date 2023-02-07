@@ -1,4 +1,4 @@
-Alt-THE SETTLERS
+THE SETTLERS
 ======
 
 ## Product Logo
