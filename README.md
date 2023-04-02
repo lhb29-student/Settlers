@@ -4,7 +4,7 @@ THE SETTLERS
 
 ## Description
 
-![Logo-1](https://user-images.githubusercontent.com/119946381/229324718-ed0a26c0-5694-45a9-9d6f-1966d8a3484b.png)
+![Logo-1](https://user-images.githubusercontent.com/119946381/229324815-35800c77-0a5e-4c46-ac14-a616aa7bd5a5.png)
 
 ## Instructions to push to Github
 
