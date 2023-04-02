@@ -11,7 +11,7 @@ THE SETTLERS
 
 2. Clone repository (you can generate or find the link on the main page by clicking on <>code and copy the https link. You 
 may need to put in your email and password)
-> git clone <link><br>
+> git clone (link)<br>
 example:<br>
 > git clone https://github.com/lhb29-student/Settlers.git<br>
 
@@ -23,7 +23,7 @@ This updates your local repo with the materials already uploaded<br>
 > git status<br>
 
 5. Staging the changes you want to commit
-> git add <filename> <br>
+> git add (filename) <br>
 If you want to add all of the changes you have done use <br>
 > git add .<br>
 
