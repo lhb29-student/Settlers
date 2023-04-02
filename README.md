@@ -1,8 +1,10 @@
 THE SETTLERS
 ======
 
-## Product Logo
+
 ## Description
+
+![Logo-1](https://user-images.githubusercontent.com/119946381/229324718-ed0a26c0-5694-45a9-9d6f-1966d8a3484b.png)
 
 ## Instructions to push to Github
 
