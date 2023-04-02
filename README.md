@@ -6,30 +6,34 @@ THE SETTLERS
 
 ## Instructions to create a branch
 
-First, you must create your branch locally
-> git checkout -b your_branch<br>
+1. Initialise Git
+- git init
 
-After that, you can work locally in your branch, when you are ready to share the branch, push it. The next command push the branch to the remote repository origin and tracks it
-> git push -u origin your_branch<br>
+2. Clone repository (you can generate or find the link on the main page by clicking on <>code and copy the https link. You 
+may need to put in your email and password)
+- git clone <link>
+example:
+- git clone https://github.com/lhb29-student/Settlers.git
 
-Teammates can reach your branch, by doing:
-> git fetch<br>
-> git checkout origin/your_branch<br>
+3. Pull from the Online Repo
+- git pull
+This updates your local repo with the materials already uploaded
 
-You can continue working in the branch and pushing whenever you want without passing arguments to git push (argumentless git push will push the master to remote master, your_branch local to remote your_branch, etc...)
-> git push<br>
+4. Checking your status (Not really mandatory but do it to be safe)
+- git status
 
-Teammates can push to your branch by doing commits and then push explicitly
-> ... work ...<br>
-> git commit<br>
-> ... work ...<br>
-> git commit<br>
-> git push origin HEAD:refs/heads/your_branch<br>
+5. Staging the changes you want to commit
+- git add <filename>
+If you want to add all of the changes you have done use
+- git add .
 
-Or tracking the branch to avoid the arguments to git push
->git checkout --track -b your_branch origin/your_branch<br>
->... work ...<br>
->git commit<br>
->... work ...<br>
->git commit<br>
->git push<br>
+6. Committing the files that have been added and creating a new revision with a log
+- git commit -m "Description"
+example:
+- git commit -m "Made changes to some code"
+
+7. Pushing it to Github
+- git push
+Should be the final step
+Repeat step 3 until 7
+If errors show up carefully follow the instructions given
