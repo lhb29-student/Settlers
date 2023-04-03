@@ -6,14 +6,14 @@ namespace Scoreboard
     public class Scoreboard : MonoBehaviour
     {
         [SerializeField] private int maxScoreboardEntries = 5;
-        [SerializeField] private Transform highscoresHolderTransform = null;
+        [SerializeField] private Transform victoryPointsHolderTransform = null;
         [SerializeField] private GameObject scoreboardEntryObject = null;
 
         [Header("Test")]
         [SerializeField] private string testEntryName = "New Name";
         [SerializeField] private int testEntryScore = 0;
 
-        private string SavePath => $"{Application.persistentDataPath}/highscores.json";
+        private string SavePath => $"{Application.persistentDataPath}/victoryPoints.json";
 
         private void Start()
         {
@@ -38,29 +38,33 @@ namespace Scoreboard
         {
             ScoreboardSaveData savedScores = GetSavedScores();
 
-            bool scoreAdded = false;
+            bool scoreAdded = true;
+
+            //No need for highscores for now
+
+            /*bool scoreAdded = false;
 
             //Check if the score is high enough to be added.
-            for (int i = 0; i < savedScores.highscores.Count; i++)
+            for (int i = 0; i < savedScores.victoryPoints.Count; i++)
             {
-                if (testEntryScore > savedScores.highscores[i].entryScore)
+                if (testEntryScore > savedScores.victoryPoints[i].entryScore)
                 {
-                    savedScores.highscores.Insert(i, scoreboardEntryData);
+                    savedScores.victoryPoints.Insert(i, scoreboardEntryData);
                     scoreAdded = true;
                     break;
                 }
-            }
+            }*/
 
             //Check if the score can be added to the end of the list.
-            if (!scoreAdded && savedScores.highscores.Count < maxScoreboardEntries)
+            if (!scoreAdded && savedScores.victoryPoints.Count < maxScoreboardEntries)
             {
-                savedScores.highscores.Add(scoreboardEntryData);
+                savedScores.victoryPoints.Add(scoreboardEntryData);
             }
 
             //Remove any scores past the limit.
-            if (savedScores.highscores.Count > maxScoreboardEntries)
+            if (savedScores.victoryPoints.Count > maxScoreboardEntries)
             {
-                savedScores.highscores.RemoveRange(maxScoreboardEntries, savedScores.highscores.Count - maxScoreboardEntries);
+                savedScores.victoryPoints.RemoveRange(maxScoreboardEntries, savedScores.victoryPoints.Count - maxScoreboardEntries);
             }
 
             UpdateUI(savedScores);
@@ -70,14 +74,14 @@ namespace Scoreboard
 
         private void UpdateUI(ScoreboardSaveData savedScores)
         {
-            foreach (Transform child in highscoresHolderTransform)
+            foreach (Transform child in victoryPointsHolderTransform)
             {
                 Destroy(child.gameObject);
             }
 
-            foreach (ScoreboardEntryData highscore in savedScores.highscores)
+            foreach (ScoreboardEntryData highscore in savedScores.victoryPoints)
             {
-                Instantiate(scoreboardEntryObject, highscoresHolderTransform).GetComponent<ScoreboardEntryUI>().Initialise(highscore);
+                Instantiate(scoreboardEntryObject, victoryPointsHolderTransform).GetComponent<ScoreboardEntryUI>().Initialise(highscore);
             }
         }
 

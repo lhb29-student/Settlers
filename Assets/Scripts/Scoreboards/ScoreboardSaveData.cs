@@ -6,6 +6,6 @@ namespace Scoreboard
     [Serializable]
     public class ScoreboardSaveData
     {
-        public List<ScoreboardEntryData> highscores = new List<ScoreboardEntryData>();
+        public List<ScoreboardEntryData> victoryPoints = new List<ScoreboardEntryData>();
     }
 }
