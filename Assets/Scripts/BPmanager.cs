@@ -6,12 +6,15 @@ using static Players;
 
 public class BPmanager : MonoBehaviour
 {
+
     [SerializeField] private players playTurn;
     [SerializeField] private UserPlayer[] players;
     [SerializeField] private int playNum = 0;
 
     [SerializeField] private List<Intersect> allInters;
     [SerializeField] private List<Road> allRoads;
+
+    // can pick
     [SerializeField] private bool pickInter;
     [SerializeField] private bool pickRoad;
     [SerializeField] private bool pickCity;
@@ -21,13 +24,12 @@ public class BPmanager : MonoBehaviour
     [SerializeField] private HashSet<Intersect> startingInters = new HashSet<Intersect>();
     [SerializeField] private GameManager gm;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-       
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         int turn = gm.getColorCode();
@@ -145,7 +147,6 @@ public class BPmanager : MonoBehaviour
         {
             near.GetComponentInChildren<BoardPiece>().setCanPick(true);
         }
-        
     }
 
     public void setToCity()
@@ -156,7 +157,6 @@ public class BPmanager : MonoBehaviour
             if(inter.getCity() == false)
             inter.GetComponentInChildren<BoardPiece>().setCanPick(true);
         }
-        
     }
 
     public void buildSettlement()

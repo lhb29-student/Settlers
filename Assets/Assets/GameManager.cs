@@ -98,4 +98,16 @@ public class GameManager : MonoBehaviour
         return colorCode;
     }
    
+    // receives an input and sets colorCode to said input
+    public void setColorCode(int codeNumber)
+    {
+        if(codeNumber > 4 || codeNumber <= 0)
+        {
+            Debug.Log("Invalid color code");
+        }
+        else
+        {
+            colorCode = codeNumber;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class BoardPiece : MonoBehaviour
@@ -14,14 +15,18 @@ public class BoardPiece : MonoBehaviour
     [SerializeField] private GameObject canPick;
     [SerializeField] private BPmanager bpm;
 
+    // for setup phase
+    [SerializeField] private StartPhase startPhase;
+
     void Start()
     {
         
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         material = GetComponentInChildren<MeshRenderer>().material;
         setCanPick(false);
-        
-        
+
+        // setup phase
+        startPhase = GameObject.FindWithTag("Land").GetComponent<StartPhase>();
     }
 
     private void Update()
@@ -48,6 +53,9 @@ public class BoardPiece : MonoBehaviour
             if (pt == pieceType.noBuild && bpm.getPickInter() == true && unUseable == false)
             {
                 meshRenderer.enabled = true;
+                Debug.Log("house placed");
+                startPhase.settlementPlaced = true;
+
                 pt = pieceType.settlement;
                 bpm.AvailableIntersOff();
                 bpm.setPickInter(false);
@@ -61,6 +69,9 @@ public class BoardPiece : MonoBehaviour
             if(pt == pieceType.noRoad && bpm.getPickRoad() == true && unUseable == false)
             {
                 meshRenderer.enabled = true;
+                Debug.Log("road placed");
+                startPhase.roadPlaced = true;
+
                 pt = pieceType.road;
                 bpm.AvailableRoadsOff();
                 bpm.setPickRoad(false);
@@ -77,7 +88,6 @@ public class BoardPiece : MonoBehaviour
                 this.GetComponentInParent<Intersect>().setCityControll(material.color);
                 bpm.AvailableIntersOff();
                 bpm.GetPlayer(playcontroll).addScore(1);
-
             }
             
         }

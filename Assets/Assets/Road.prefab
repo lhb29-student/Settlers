@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.9999999}
-  m_Center: {x: -0.00000011752176, y: 0, z: 0.00000010031538}
+  m_Size: {x: 1.2934697, y: 1.8089026, z: 0.51821387}
+  m_Center: {x: -0.0059610605, y: 0.4044506, z: -0.011548996}
 --- !u!114 &7096194710138607371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +114,8 @@ MonoBehaviour:
   unUseable: 0
   pt: 1
   canPick: {fileID: 7346031908855519079}
+  bpm: {fileID: 0}
+  startPhase: {fileID: 0}
 --- !u!1 &7346031908855519079
 GameObject:
   m_ObjectHideFlags: 0
