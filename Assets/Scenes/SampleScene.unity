@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1022,6 +1022,7 @@ MonoBehaviour:
   colorCode: 0
   canPick: {r: 1, g: 1, b: 1, a: 0.02}
   plr: {fileID: 16393545}
+  tm: {fileID: 0}
 --- !u!114 &86963363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17765,17 +17766,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6959585389680376163, guid: 07da9f584b0f8fe44adbd8d4846fbd35, type: 3}
   m_PrefabInstance: {fileID: 1721456434}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1724198313 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5522790656929711242, guid: 76e4a8ffd25aa0247ad27e2ccf8567d3, type: 3}
-  m_PrefabInstance: {fileID: 153366320}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d16d65d3a0310c4d859fd670a1e1594, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1724886898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18973,11 +18963,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 86963363}
         m_TargetAssemblyTypeName: tokenManager, Assembly-CSharp
-        m_MethodName: replaceRobber
-        m_Mode: 2
+        m_MethodName: availableRobberSpace
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1724198313}
-          m_ObjectArgumentAssemblyTypeName: Hex, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

@@ -57,5 +57,19 @@ public class tokenManager : MonoBehaviour
         WhereRobber.setRobber(true);
         robber.transform.position = newHex.GetComponent<Transform>().position + new Vector3(0.0f, 1.7f, 0.0f);
     }
-   
+
+    public void availableRobberSpace()
+    {
+        foreach(placeToken pt in pt)
+        {
+            pt.GetComponentInParent<Hex>().robberPlaceOptions();
+        }
+    }
+    public void closeRobberSpace()
+    {
+        foreach (placeToken pt in pt)
+        {
+            pt.GetComponentInParent<Hex>().robberCloseOptions();
+        }
+    }
 }

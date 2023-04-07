@@ -10,13 +10,14 @@ public class Hex : MonoBehaviour
     [SerializeField] private int tokenNumber;
     [SerializeField] private List<Intersect> iPoints;
     [SerializeField] private bool robber;
-    
+    [SerializeField] private GameObject moveRobber;
 
     public Vector3Int HexCoordnts => hexCoords.GetHexCoords();
 
     private void Awake()
     {
         hexCoords = GetComponent<HexCoords>();
+        moveRobber.SetActive(false);
     }
 
     public void changeTerain(Material m)
@@ -67,5 +68,18 @@ public class Hex : MonoBehaviour
         {
             i.getResource((int)terrainType.GetTypeCode() + ". " + terrainType.ToString());
         }
+    }
+
+    public void robberPlaceOptions()
+    {
+        if (!robber)
+        {
+            moveRobber.SetActive(true);
+        }
+    }
+
+    public void robberCloseOptions()
+    {
+        moveRobber.SetActive(false);
     }
 }

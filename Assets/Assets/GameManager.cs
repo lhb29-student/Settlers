@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int colorCode = 0;
     [SerializeField] private Color canPick;
     [SerializeField] private PlayLongRoad plr;
+    [SerializeField] private tokenManager tm;
   
     
     void Start()
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Press between 1~4 to change color of pieces you click on");
+
+        tm = GetComponent<tokenManager>();
     }
 
     void Update()
@@ -60,6 +63,15 @@ public class GameManager : MonoBehaviour
                         collider.GetComponent<BoardPiece>().ClickEvent();
 
                         plr.findLongestPath();
+                    }
+
+                    if (collider.tag == "moveRob")
+                    {
+                        Debug.Log("Moved the robber here at " + collider.GetComponentInParent<Hex>().name);
+                        tm.replaceRobber(collider.GetComponentInParent<Hex>());
+                        tm.closeRobberSpace();
+                        
+
                     }
                 }
             }
