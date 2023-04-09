@@ -16,14 +16,28 @@ public class DiceRoll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            rollDice();
+        }
     }
 
     public void roll()
     {
-        Debug.Log("Start rolling " + diceRoll);
+        // range 2 ~ 12
+        diceRoll = Random.Range(2, 13);
+        Debug.Log("Dice roll: " + diceRoll);
         HexGrid.resolveDiceRoll(diceRoll);
     }
 
 
+    // alternate dice code
+    // random number generator
+    public int rollDice()
+    {
+        // range 2 ~ 12
+        diceRoll = Random.Range(2,13);
+        Debug.Log("Dice roll: " + diceRoll);
+        return diceRoll;
+    }
 }

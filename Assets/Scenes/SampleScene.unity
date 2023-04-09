@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -333,9 +333,10 @@ GameObject:
   - component: {fileID: 16393543}
   - component: {fileID: 16393545}
   - component: {fileID: 16393546}
+  - component: {fileID: 16393547}
   m_Layer: 0
   m_Name: MainPlayer
-  m_TagString: Untagged
+  m_TagString: p1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,6 +413,24 @@ MonoBehaviour:
   - {fileID: 550820026}
   leadPlayer: {fileID: 0}
   currantLargeArmy: 0
+--- !u!114 &16393547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16393542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31bb338dcd9c6247b74a4778b771ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalCards: 0
+  woodResource: 0
+  woolResource: 0
+  wheatResource: 0
+  oreResource: 0
+  brickResource: 0
 --- !u!114 &18636921 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1401477079887533072, guid: 76e4a8ffd25aa0247ad27e2ccf8567d3, type: 3}
@@ -1241,8 +1260,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4127e18268b7e4286d1b86071132f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playersAllocated: 0
   settlementPlaced: 0
   roadPlaced: 0
+  housePos: {x: 0, y: 0, z: 0}
+  diceNum: 0
+  hexes:
+  - {fileID: 1569072749}
+  - {fileID: 1202899762}
 --- !u!1001 &100663105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5130,9 +5155,10 @@ GameObject:
   m_Component:
   - component: {fileID: 493570871}
   - component: {fileID: 493570869}
+  - component: {fileID: 493570872}
   m_Layer: 0
   m_Name: ComPlayer
-  m_TagString: Untagged
+  m_TagString: p2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5171,6 +5197,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &493570872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493570868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31bb338dcd9c6247b74a4778b771ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalCards: 0
+  woodResource: 0
+  woolResource: 0
+  wheatResource: 0
+  oreResource: 0
+  brickResource: 0
 --- !u!4 &494622248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6959585389680376163, guid: 07da9f584b0f8fe44adbd8d4846fbd35, type: 3}
@@ -5808,9 +5852,10 @@ GameObject:
   m_Component:
   - component: {fileID: 550820028}
   - component: {fileID: 550820026}
+  - component: {fileID: 550820029}
   m_Layer: 0
   m_Name: ComPlayer2
-  m_TagString: Untagged
+  m_TagString: p4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5849,6 +5894,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550820029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550820025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31bb338dcd9c6247b74a4778b771ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalCards: 0
+  woodResource: 0
+  woolResource: 0
+  wheatResource: 0
+  oreResource: 0
+  brickResource: 0
 --- !u!1001 &554190399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12320,6 +12383,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3676220316558614126, guid: 76e4a8ffd25aa0247ad27e2ccf8567d3, type: 3}
   m_PrefabInstance: {fileID: 1088953466}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1202899762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5522790656929711242, guid: 76e4a8ffd25aa0247ad27e2ccf8567d3, type: 3}
+  m_PrefabInstance: {fileID: 1088953466}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d16d65d3a0310c4d859fd670a1e1594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1205398075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16494,6 +16568,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3676220316558614126, guid: 76e4a8ffd25aa0247ad27e2ccf8567d3, type: 3}
   m_PrefabInstance: {fileID: 3676220317976164357}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1569072749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5522790656929711242, guid: 76e4a8ffd25aa0247ad27e2ccf8567d3, type: 3}
+  m_PrefabInstance: {fileID: 3676220317976164357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d16d65d3a0310c4d859fd670a1e1594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1571335092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20786,9 +20871,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2028003381}
   - component: {fileID: 2028003379}
+  - component: {fileID: 2028003382}
   m_Layer: 0
   m_Name: ComPlayer1
-  m_TagString: Untagged
+  m_TagString: p3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20827,6 +20913,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2028003382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028003378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31bb338dcd9c6247b74a4778b771ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalCards: 0
+  woodResource: 0
+  woolResource: 0
+  wheatResource: 0
+  oreResource: 0
+  brickResource: 0
 --- !u!114 &2035706990 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3750977639592032474, guid: 07da9f584b0f8fe44adbd8d4846fbd35, type: 3}

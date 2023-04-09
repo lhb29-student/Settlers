@@ -16,7 +16,9 @@ public class BoardPiece : MonoBehaviour
     [SerializeField] private BPmanager bpm;
 
     // for setup phase
-    [SerializeField] private StartPhase startPhase;
+    [SerializeField] private BoardManager boardManager;
+    [SerializeField] private Intersect intersect;
+    [SerializeField] private Vector3 settlementPos;
 
     void Start()
     {
@@ -26,7 +28,8 @@ public class BoardPiece : MonoBehaviour
         setCanPick(false);
 
         // setup phase
-        startPhase = GameObject.FindWithTag("Land").GetComponent<StartPhase>();
+        boardManager = GameObject.FindWithTag("Land").GetComponent<BoardManager>();
+        intersect = transform.parent.gameObject.GetComponent<Intersect>();
     }
 
     private void Update()
@@ -53,8 +56,11 @@ public class BoardPiece : MonoBehaviour
             if (pt == pieceType.noBuild && bpm.getPickInter() == true && unUseable == false)
             {
                 meshRenderer.enabled = true;
-                Debug.Log("house placed");
-                startPhase.settlementPlaced = true;
+
+                boardManager.settlementPlaced = true;
+                settlementPos = transform.position;
+                boardManager.housePos = settlementPos;
+                boardManager.playersAllocated++;
 
                 pt = pieceType.settlement;
                 bpm.AvailableIntersOff();
@@ -69,8 +75,8 @@ public class BoardPiece : MonoBehaviour
             if(pt == pieceType.noRoad && bpm.getPickRoad() == true && unUseable == false)
             {
                 meshRenderer.enabled = true;
-                Debug.Log("road placed");
-                startPhase.roadPlaced = true;
+
+                boardManager.roadPlaced = true;
 
                 pt = pieceType.road;
                 bpm.AvailableRoadsOff();
@@ -132,8 +138,6 @@ public class BoardPiece : MonoBehaviour
             material.color = Color.yellow;
             playcontroll = colorCode;
         }
-
-        
     }
 
     public int getPlayColor()

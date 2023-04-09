@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
     {
         if(codeNumber > 4 || codeNumber <= 0)
         {
-            Debug.Log("Invalid color code");
+            Debug.Log("Invalid color code: " + codeNumber);
         }
         else
         {

@@ -20,6 +20,18 @@ public class Hex : MonoBehaviour
         moveRobber.SetActive(false);
     }
 
+    // new
+    public string GetTerrainType()
+    {
+        return terrainType.ToString();
+    }
+
+    // new
+    public List<Intersect> GetIntersectList()
+    {
+        return iPoints;
+    }
+
     public void changeTerain(Material m)
     {
         GetComponentInChildren<MeshRenderer>().material = m;

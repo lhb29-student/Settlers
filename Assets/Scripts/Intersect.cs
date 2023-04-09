@@ -13,6 +13,8 @@ public class Intersect : MonoBehaviour
     [SerializeField] private BoardPiece bp;
     [SerializeField] private GameObject city;
     [SerializeField] private List<Intersect> nearInters;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,12 @@ public class Intersect : MonoBehaviour
             city.SetActive(true);
             buildScore = 2;
         }
+    }
+
+    // new
+    public players GetPlayer()
+    {
+        return controlled;
     }
 
     public void updateControll(int i) {
