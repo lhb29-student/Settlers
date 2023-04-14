@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F05A8F9D-F006-6FFA-C012-68DE91434A29}</ProjectGuid>
+    <ProjectGuid>{09AD7AB1-D18E-ADC4-F2C1-1EBDB1072FCF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,7 +58,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerResources.cs" />
     <Compile Include="Assets\Scripts\Hex.cs" />
+    <Compile Include="Assets\Scripts\CardManager.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
+    <Compile Include="Assets\AIScript.cs" />
     <Compile Include="Assets\Scripts\UserPlayer.cs" />
     <Compile Include="Assets\Assets\BoardPiece.cs" />
     <Compile Include="Assets\Assets\GameManager.cs" />
@@ -67,9 +69,11 @@
     <Compile Include="Assets\Scripts\Players.cs" />
     <Compile Include="Assets\Scripts\TerrainType.cs" />
     <Compile Include="Assets\Scripts\tokenManager.cs" />
+    <Compile Include="Assets\Scripts\Cards.cs" />
     <Compile Include="Assets\Scripts\HexMaterials.cs" />
     <Compile Include="Assets\Scripts\Habour.cs" />
     <Compile Include="Assets\Scripts\HexData.cs" />
+    <Compile Include="Assets\Scripts\CardHand.cs" />
     <Compile Include="Assets\Scripts\PlayLongRoad.cs" />
     <Compile Include="Assets\Scripts\placeToken.cs" />
     <Compile Include="Assets\Scripts\tokenData.cs" />

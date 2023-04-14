@@ -80,8 +80,6 @@ public class GameManager : MonoBehaviour
             //Debug.Log(clickPosition);
         }
 
-        
-
         // mostly for testing and changing color
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -102,6 +100,35 @@ public class GameManager : MonoBehaviour
         {
             colorCode = 4;
             Debug.Log("Color: yellow");
+        }
+    }
+
+    public void AIClick(Vector3 clickPos)
+    {
+        // creates a sphere that interacts with whatever is near the click position
+        Collider[] colliders = Physics.OverlapSphere(clickPos, 0.1f);
+
+        // anything caught within the sphere created
+        foreach (var collider in colliders)
+        {
+            // very barebones board interaction
+            if (collider.tag == "Asset")
+            {
+                // changes color based on selected color
+                // in the future this will be based on whose turn it currently is
+                collider.GetComponent<BoardPiece>().GetColor(colorCode);
+                // basic code to check that settlements and roads can be interacted with
+                collider.GetComponent<BoardPiece>().ClickEvent();
+
+                plr.findLongestPath();
+            }
+
+            if (collider.tag == "moveRob")
+            {
+                Debug.Log("Moved the robber here at " + collider.GetComponentInParent<Hex>().name);
+                tm.replaceRobber(collider.GetComponentInParent<Hex>());
+                tm.closeRobberSpace();
+            }
         }
     }
 

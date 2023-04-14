@@ -115,6 +115,9 @@ MonoBehaviour:
   pt: 0
   canPick: {fileID: 6622736758181059175}
   bpm: {fileID: 0}
+  boardManager: {fileID: 0}
+  intersect: {fileID: 0}
+  settlementPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5822584607182256527
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +130,7 @@ GameObject:
   - component: {fileID: 1326590614119785125}
   m_Layer: 0
   m_Name: Intersect
-  m_TagString: Untagged
+  m_TagString: Intersect
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

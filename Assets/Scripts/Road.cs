@@ -23,6 +23,11 @@ public class Road : MonoBehaviour
         updateControll(bp.getPlayColor());
     }
 
+    public players GetPlayer()
+    {
+        return controlled;
+    }
+
     public void updateControll(int i)
     {
         controlled = (players)i;

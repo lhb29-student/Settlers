@@ -12,6 +12,9 @@ TagManager:
   - p2
   - p3
   - p4
+  - viewOnly
+  - Road
+  - Intersect
   layers:
   - Default
   - TransparentFX

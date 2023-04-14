@@ -5,17 +5,20 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour
 {
     
-    private int currentPlayer;
-    private int playerTurn;
-    private int playerCount = 0;
-    private int p4Settlement = 0;
-    public int playersAllocated = 0;
+    [SerializeField] private int currentPlayer;
+    [SerializeField] private int playerTurn;
+    [SerializeField] private int playerCount = 0;
+    [SerializeField] private int p4Settlement = 0;
+    [SerializeField] public int playersAllocated = 0;
+    [SerializeField] private int totalRoadsPlaced = 0;
+    [SerializeField] private GameObject allRoads;
 
     public bool settlementPlaced = false;
     public bool roadPlaced = false;
     private bool firstRound = true;
     private bool settingUp = true;
     private bool repeatSetup = true;
+    public bool gameStart = false;
 
     private GameManager gm;
     private BPmanager bPManager;
@@ -23,6 +26,11 @@ public class BoardManager : MonoBehaviour
 
     public int diceNum;
     public List<Hex> hexes;
+    public List<Road> roads;
+    
+
+    // accessed by ai script
+    public string currentP;
 
 
     void Start()
@@ -40,6 +48,14 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+        foreach (Transform child in allRoads.transform)
+        {
+            if (child.GetComponent<Road>() != null)
+            {
+                roads.Add(child.GetComponent<Road>());
+            }
+        }
+
         // checker to track how many players have placed their settlements
         playerCount++;
 
@@ -51,6 +67,20 @@ public class BoardManager : MonoBehaviour
 
     void Update()
     {
+        // debug find player
+        currentP = "p" + ((currentPlayer % 4) + 1);
+
+        // game starts once starting roads are placed
+        if (totalRoadsPlaced >= 8)
+        {
+            gameStart = true;
+        }
+        else
+        {
+            // counts roads placed until all players are done placing
+            RoadCheck();
+        }
+
         // for testing
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -58,7 +88,6 @@ public class BoardManager : MonoBehaviour
             diceNum = GetDiceRoll();
             AllocateResource();
         }
-
 
         // current player should be same as player's turn
         if (currentPlayer != playerTurn)
@@ -154,6 +183,19 @@ public class BoardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             FindPlayer();
+        }
+    }
+
+    public void RoadCheck()
+    {
+        totalRoadsPlaced = 0;
+
+        foreach (Road road in roads)
+        {
+            if(road.GetPlayer().ToString() != "np")
+            {
+                totalRoadsPlaced++;
+            }
         }
     }
 

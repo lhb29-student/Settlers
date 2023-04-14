@@ -94,11 +94,8 @@ public class BoardPiece : MonoBehaviour
                 this.GetComponentInParent<Intersect>().setCityControll(material.color);
                 bpm.AvailableIntersOff();
                 bpm.GetPlayer(playcontroll).addScore(1);
-            }
-            
+            }   
         }
-
-
     }
 
     public void startingBuild()
@@ -110,13 +107,10 @@ public class BoardPiece : MonoBehaviour
             bpm.setAddStartInter(false);
             bpm.setupSettlementRoad(this.GetComponentInParent<Intersect>());
         }
-        
     }
 
     public void GetColor(int colorCode)
     {
-        
-
         // color of set piece is changed based on input from game manager
         if (colorCode == 1 && !unUseable)
         {

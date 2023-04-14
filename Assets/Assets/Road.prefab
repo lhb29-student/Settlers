@@ -115,7 +115,9 @@ MonoBehaviour:
   pt: 1
   canPick: {fileID: 7346031908855519079}
   bpm: {fileID: 0}
-  startPhase: {fileID: 0}
+  boardManager: {fileID: 0}
+  intersect: {fileID: 0}
+  settlementPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7346031908855519079
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ GameObject:
   - component: {fileID: 966442637391582730}
   m_Layer: 0
   m_Name: CanPick
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +228,7 @@ GameObject:
   - component: {fileID: 3750977639592032474}
   m_Layer: 0
   m_Name: Road
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
