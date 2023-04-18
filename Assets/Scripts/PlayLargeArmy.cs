@@ -10,13 +10,13 @@ public class PlayLargeArmy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        findLargeArmy();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        findLargeArmy();
     }
 
     public void findLargeArmy()
@@ -25,13 +25,13 @@ public class PlayLargeArmy : MonoBehaviour
         {
             if (player.getNumOfKnights() >= 3)
             {
-                compareLongestPath(player);
+                compareLargestArmy(player);
             }
 
         }
     }
 
-    public void compareLongestPath(UserPlayer p)
+    public void compareLargestArmy(UserPlayer p)
     {
         if (leadPlayer == null)
         {

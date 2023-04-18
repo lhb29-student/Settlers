@@ -83,6 +83,7 @@ public class BoardPiece : MonoBehaviour
                 bpm.setPickRoad(false);
                 unUseable = true;
                 bpm.GetPlayer(playcontroll).addRoad(this.GetComponentInParent<Road>());
+                checkRoadBuilding();
             }
 
             if(pt == pieceType.settlement && bpm.getPickCity() == true && this.playcontroll == bpm.getPlayTurn())
@@ -106,6 +107,15 @@ public class BoardPiece : MonoBehaviour
             bpm.addToStartInters(boardPiece.GetComponentInParent<Intersect>());
             bpm.setAddStartInter(false);
             bpm.setupSettlementRoad(this.GetComponentInParent<Intersect>());
+        }
+    }
+
+    public void checkRoadBuilding()
+    {
+        if(bpm.getPickRoadTwo() == true)
+        {
+            bpm.placeRoad();
+            bpm.setPickRoadTwo(false);
         }
     }
 

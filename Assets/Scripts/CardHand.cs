@@ -6,7 +6,9 @@ using UnityEngine;
 public class CardHand : MonoBehaviour
 {
     [SerializeField] private List<Cards> currantHand = new List<Cards>();
-
+    [SerializeField] private PlayerResources ownResources;
+    [SerializeField] private BPmanager bpm;
+    [SerializeField] private CardManager cm;
     public List<Cards> returnHand()
     {
         return currantHand;
@@ -40,16 +42,26 @@ public class CardHand : MonoBehaviour
         {
             //play Monopoly
             Debug.Log("play Monopoly");
+            cm.setYopOrMonop(true);
+            cm.setResourceText("Select resource");
+            cm.setInPlayResources(ownResources);
+            cm.openResourseDisplay();
         }
         else if (id == 7)
         {
             //play YearOfPlenty
             Debug.Log("play YearOfPlenty");
+            cm.setYopOrMonop(false);
+            cm.setResourceText("Select first resource");
+            cm.setInPlayResources(ownResources);
+            cm.openResourseDisplay();
         }
         else if (id == 8)
         {
             //play RoadBuilding
             Debug.Log("play RoadBuilding");
+            bpm.RoadBuilding();
+
         }
         else
         {

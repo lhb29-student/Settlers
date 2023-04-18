@@ -17,6 +17,7 @@ public class BPmanager : MonoBehaviour
     // can pick
     [SerializeField] private bool pickInter;
     [SerializeField] private bool pickRoad;
+    [SerializeField] private bool pickRoadTwo;
     [SerializeField] private bool pickCity;
 
     [SerializeField] private bool addStartInter;
@@ -24,11 +25,6 @@ public class BPmanager : MonoBehaviour
     [SerializeField] private HashSet<Intersect> startingInters = new HashSet<Intersect>();
     [SerializeField] private GameManager gm;
 
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -180,10 +176,20 @@ public class BPmanager : MonoBehaviour
         }
     }
 
+    public void RoadBuilding()
+    {
+        setPickRoadTwo(true);
+        placeRoad();
+    }
+
+    
+
     public bool getPickInter() { return pickInter; }
     public void setPickInter(bool b) { pickInter = b; }
     public bool getPickRoad() { return pickRoad; }
     public void setPickRoad(bool b) { pickRoad = b; }
+    public bool getPickRoadTwo() { return pickRoadTwo; }
+    public void setPickRoadTwo(bool b) { pickRoadTwo = b; }
     public bool getPickCity() { return pickCity; }
     public void setPickCity(bool b) { pickCity = b; }
     public bool getAddStartInter() { return addStartInter; }
