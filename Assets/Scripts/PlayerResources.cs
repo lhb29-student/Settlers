@@ -12,6 +12,7 @@ public class PlayerResources : MonoBehaviour
     [SerializeField] private int oreResource = 0;
     [SerializeField] private int brickResource = 0;
 
+    public List<int> resources;
 
     void Start()
     {
@@ -20,59 +21,100 @@ public class PlayerResources : MonoBehaviour
 
     void Update()
     {
-        
+        totalCards = woodResource + woolResource + wheatResource + oreResource + brickResource;
+    }
+
+    public void DiscardResource()
+    {
+        // store resource count
+        resources = new List<int>();
+        resources.Add(woodResource);
+        resources.Add(woolResource);
+        resources.Add(wheatResource);
+        resources.Add(oreResource);
+        resources.Add(brickResource);
+
+        // determine discard amount
+        int discardAmount = totalCards / 2;
+
+        // loop until removed half of cards
+        for (int i = 0; i < discardAmount; i++)
+        {
+            // choose random resource
+            int chooseDiscard = Random.Range(0, 5);
+
+            if (resources[chooseDiscard] == 0)
+            {
+                // ensures only resource player has is discarded
+                while (true)
+                {
+                    chooseDiscard = Random.Range(0, 5);
+                    if (resources[chooseDiscard] != 0)
+                    {
+                        break;
+                    }
+                }
+                
+            }
+            //Debug.Log("discarding resource");
+            resources[chooseDiscard]--;
+        }
+
+        // new resource count
+        woodResource = resources[0];
+        woolResource = resources[1];
+        wheatResource = resources[2];
+        oreResource = resources[3];
+        brickResource = resources[4];
+
+        //Debug.Log("removed " + discardAmount + " cards");
+    }
+
+    public int GetTotalCards()
+    {
+        return totalCards;
     }
 
     public void AddWood()
     {
         woodResource++;
-        totalCards++;
     }
     public void AddWool()
     {
         woolResource++;
-        totalCards++;
     }
     public void AddWheat()
     {
         wheatResource++;
-        totalCards++;
     }
     public void AddOre()
     {
         oreResource++;
-        totalCards++;
     }
     public void AddBrick()
     {
         brickResource++;
-        totalCards++;
     }
 
     public void RemoveWood()
     {
         woodResource--;
-        totalCards--;
     }
     public void RemoveWool()
     {
         woolResource--;
-        totalCards--;
     }
     public void RemoveWheat()
     {
         wheatResource--;
-        totalCards--;
     }
     public void RemoveOre()
     {
         oreResource--;
-        totalCards--;
     }
     public void RemoveBrick()
     {
         brickResource--;
-        totalCards--;
     }
 
     public int loseWood()

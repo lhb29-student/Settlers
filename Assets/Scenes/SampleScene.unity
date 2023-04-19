@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -314,7 +314,7 @@ Transform:
   - {fileID: 634045574}
   - {fileID: 1630124838}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8587209 stripped
 Transform:
@@ -368,13 +368,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16393542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.41, y: 0, z: 4.04}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.660602, y: -0.35103095, z: 7.7124977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1139062068}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &16393545
 MonoBehaviour:
@@ -1305,7 +1305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3959662600731520153, guid: f19df020eab951349896fdbca4062a2d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3959662600731520153, guid: f19df020eab951349896fdbca4062a2d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1419,7 +1419,7 @@ Transform:
   - {fileID: 1844506538}
   - {fileID: 954327857}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &86963361
 MonoBehaviour:
@@ -1464,6 +1464,7 @@ MonoBehaviour:
   canPick: {r: 1, g: 1, b: 1, a: 0.02}
   plr: {fileID: 16393545}
   tm: {fileID: 0}
+  boardManager: {fileID: 0}
 --- !u!114 &86963363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1700,6 +1701,8 @@ MonoBehaviour:
   - {fileID: 1202899762}
   roads: []
   currentP: 
+  canRoll: 1
+  moveBandit: 1
 --- !u!114 &86963366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5670,7 +5673,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &447948589
 PrefabInstance:
@@ -5980,13 +5983,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493570868}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.41, y: 0, z: 4.04}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.660602, y: -0.35103095, z: 7.7124977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1139062068}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &493570872
 MonoBehaviour:
@@ -6038,10 +6041,12 @@ MonoBehaviour:
   playerColor: 0
   chooseInter: 0
   isBusy: 0
+  diceRolled: 0
   boardManager: {fileID: 0}
   gameManager: {fileID: 0}
   intersects: []
   allIntersects: {fileID: 0}
+  checkCards: 0
   bp: {fileID: 0}
   inter: {fileID: 0}
 --- !u!4 &494622248 stripped
@@ -6717,13 +6722,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550820025}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.41, y: 0, z: 4.04}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.660602, y: -0.35103095, z: 7.7124977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1139062068}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &550820029
 MonoBehaviour:
@@ -6775,10 +6780,12 @@ MonoBehaviour:
   playerColor: 0
   chooseInter: 0
   isBusy: 0
+  diceRolled: 0
   boardManager: {fileID: 0}
   gameManager: {fileID: 0}
   intersects: []
   allIntersects: {fileID: 0}
+  checkCards: 0
   bp: {fileID: 0}
   inter: {fileID: 0}
 --- !u!1001 &554190399
@@ -7710,7 +7717,7 @@ RectTransform:
   - {fileID: 147949672}
   - {fileID: 385764092}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8568,7 +8575,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &706207349
 PrefabInstance:
@@ -13358,6 +13365,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124249255}
   m_Mesh: {fileID: -2432090755550338912, guid: 5463bd5380270d14d8379392056e420f, type: 3}
+--- !u!1 &1139062067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139062068}
+  m_Layer: 0
+  m_Name: Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1139062068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139062067}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2506015, y: 0.35103095, z: -3.6724977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 16393544}
+  - {fileID: 493570871}
+  - {fileID: 2028003381}
+  - {fileID: 550820028}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1146443607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17016,7 +17058,7 @@ Transform:
   - {fileID: 439390686}
   - {fileID: 1812295946}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1369514471
 PrefabInstance:
@@ -20574,7 +20616,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1715674048
 PrefabInstance:
@@ -24283,13 +24325,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028003378}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.41, y: 0, z: 4.04}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.660602, y: -0.35103095, z: 7.7124977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1139062068}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2028003382
 MonoBehaviour:
@@ -24341,10 +24383,12 @@ MonoBehaviour:
   playerColor: 0
   chooseInter: 0
   isBusy: 0
+  diceRolled: 0
   boardManager: {fileID: 0}
   gameManager: {fileID: 0}
   intersects: []
   allIntersects: {fileID: 0}
+  checkCards: 0
   bp: {fileID: 0}
   inter: {fileID: 0}
 --- !u!1 &2031065436
@@ -27314,7 +27358,7 @@ Transform:
   - {fileID: 1219457075}
   - {fileID: 292018717}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9192999699609241612
 PrefabInstance:

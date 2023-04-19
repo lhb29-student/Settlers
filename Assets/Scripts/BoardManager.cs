@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int p4Settlement = 0;
     [SerializeField] public int playersAllocated = 0;
     [SerializeField] private int totalRoadsPlaced = 0;
+    [SerializeField] private int rotatePlayer;
     [SerializeField] private GameObject allRoads;
 
     public bool settlementPlaced = false;
@@ -31,10 +33,14 @@ public class BoardManager : MonoBehaviour
 
     // accessed by ai script
     public string currentP;
+    public bool canRoll = true;
+    public bool moveBandit = false;
 
 
     void Start()
     {
+        moveBandit = false;
+
         gm = GetComponent<GameManager>();
         bPManager = GetComponent<BPmanager>();
         hexes = new List<Hex>();
@@ -67,26 +73,25 @@ public class BoardManager : MonoBehaviour
 
     void Update()
     {
-        // debug find player
-        currentP = "p" + ((currentPlayer % 4) + 1);
-
-        // game starts once starting roads are placed
-        if (totalRoadsPlaced >= 8)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            gameStart = true;
+            NextPlayer();
+        }
+
+        if (gameStart == true)
+        {
+            currentP = "p" + ((rotatePlayer % 4) + 1);
         }
         else
         {
-            // counts roads placed until all players are done placing
-            RoadCheck();
+            // debug find player
+            currentP = "p" + ((currentPlayer % 4) + 1);
         }
 
         // for testing
         if (Input.GetKeyDown(KeyCode.P))
         {
-            // allocate resource when dice is rolled
-            diceNum = GetDiceRoll();
-            AllocateResource();
+            RollDice();
         }
 
         // current player should be same as player's turn
@@ -167,9 +172,23 @@ public class BoardManager : MonoBehaviour
         // allocate resource for final player
         if (!settingUp && playersAllocated == 8)
         {
+            rotatePlayer = currentPlayer;
+
             Debug.Log("final player");
             playersAllocated++;
             AllocateStartingResource();
+
+            // game starts once starting roads are placed
+            if (totalRoadsPlaced >= 8)
+            {
+                gameStart = true;
+            }
+        }
+
+        if (gameStart == false)
+        {
+            // counts roads placed until all players are done placing
+            RoadCheck();
         }
 
         // fail safe for second round
@@ -186,6 +205,47 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    // called by aiscript
+    public void NextPlayer()
+    {
+        gameStart = true;
+        canRoll = true;
+        rotatePlayer++;
+        //Debug.Log("Next player");
+    }
+
+    public void RollDice()
+    {
+        // allocate resource when dice is rolled
+        diceNum = GetDiceRoll();
+        
+        // move robber if rolled 7
+        if (diceNum == 7)
+        {
+            //Debug.Log("Move bandit");
+            moveBandit = true;
+            List<PlayerResources> playResources = new List<PlayerResources>();
+            List<AIScript> aIScripts = new List<AIScript>();
+            GameObject allPlayers = GameObject.Find("Players");
+
+            foreach(Transform child in allPlayers.transform)
+            {
+                playResources.Add(child.GetComponent<PlayerResources>());
+                if (child.GetComponent<AIScript>() != null)
+                {
+                    aIScripts.Add(child.GetComponent<AIScript>());
+                    child.GetComponent<AIScript>().checkCards = true;
+                }
+
+                Debug.Log("aiscript count: " + aIScripts.Count);
+                Debug.Log("Resource count: " + child.GetComponent<PlayerResources>().GetTotalCards());
+            }
+        }
+        else
+        {
+            AllocateResource();
+        }
+    }
     public void RoadCheck()
     {
         totalRoadsPlaced = 0;
@@ -260,8 +320,8 @@ public class BoardManager : MonoBehaviour
                 // find all intersects on hex
                 foreach (Intersect intersect in hex.GetIntersectList())
                 {
-                    // find owned intersects
-                    if (intersect.GetPlayer().ToString() != "np")
+                    // find owned intersects and check robber
+                    if (intersect.GetPlayer().ToString() != "np" && hex.isRobberHere() == false)
                     {
                         // find player
                         GameObject chosenPlayer = GameObject.FindGameObjectWithTag(intersect.GetPlayer().ToString());

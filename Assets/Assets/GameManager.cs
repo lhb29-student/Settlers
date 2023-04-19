@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Color canPick;
     [SerializeField] private PlayLongRoad plr;
     [SerializeField] private tokenManager tm;
+    [SerializeField] private BoardManager boardManager;
   
     
     void Start()
@@ -26,12 +27,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Press between 1~4 to change color of pieces you click on");
 
         tm = GetComponent<tokenManager>();
+        boardManager = GameObject.Find("Land").GetComponent<BoardManager>();
     }
 
     void Update()
     {
         // left click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && boardManager.currentP == "p1")
         {
             // field for storing where the mouse is
             Vector3 clickPosition = Vector3.one;
