@@ -15,10 +15,15 @@ public class AIScript : MonoBehaviour
 
     [SerializeField] private bool isBusy = false;
     [SerializeField] private bool diceRolled = false;
+    [SerializeField] private bool placedRoads = false;
+    [SerializeField] private bool placedSettlements = false;
+    [SerializeField] private bool upgradedCity = false;
     [SerializeField] private bool routineStart = false;
 
     [SerializeField] private BoardManager boardManager;
+    [SerializeField] private BPmanager bPmanager;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private PlayerResources playerResources;
     [SerializeField] private List<GameObject> intersects;
     [SerializeField] private GameObject allIntersects;
 
@@ -33,11 +38,14 @@ public class AIScript : MonoBehaviour
         playerTag = gameObject.tag;
         allIntersects = GameObject.Find("IntersectPoints");
 
+        // set player color code
         playerColor = int.Parse(playerTag.Substring(1));
 
         // initialise managers
         boardManager = GameObject.FindGameObjectWithTag("Land").GetComponent<BoardManager>();
         gameManager = GameObject.FindGameObjectWithTag("Land").GetComponent<GameManager>();
+        bPmanager = GameObject.FindGameObjectWithTag("Land").GetComponent<BPmanager>();
+        playerResources = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerResources>();
 
         intersects = new List<GameObject>();
 
@@ -61,7 +69,7 @@ public class AIScript : MonoBehaviour
             {
                 StartCoroutine(ChooseStarter());
             }
-            if (routineStart == false)
+            if (routineStart == false && boardManager.gameStart == true)
             {
                 StartCoroutine(AIRoutine());
             }
@@ -70,6 +78,13 @@ public class AIScript : MonoBehaviour
         if (checkCards == true)
         {
             CheckCards();
+
+            // ai move bandit
+            if (boardManager.moveBandit == true)
+            {
+                // move bandit
+                PickRobberLocation();
+            }
         }
     }
 
@@ -101,8 +116,21 @@ public class AIScript : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
+        CheckSettlements();
+
+        yield return new WaitForSeconds(0.5f);
+
+        UpgradeCity();
+
+        yield return new WaitForSeconds(0.5f);
+
+        CheckRoads();
+
+        yield return new WaitForSeconds(0.5f);
+
+        // round end
         // all moves finished
-        if (diceRolled == true)
+        if (diceRolled == true && placedRoads == true && placedSettlements == true && upgradedCity == true)
         {
             Debug.Log(playerTag + " ended turn");
             boardManager.NextPlayer();
@@ -118,6 +146,46 @@ public class AIScript : MonoBehaviour
     public void ResetStates()
     {
         diceRolled = false;
+        placedRoads = false;
+        placedSettlements = false;
+        upgradedCity = false;
+    }
+
+    // place roads if enough resource
+    public void CheckRoads()
+    {
+        placedRoads = true;
+    }
+
+    // place new settlements
+    public void CheckSettlements()
+    {
+
+        // bug settlement color doesnt change according to player color
+
+
+        // set color code
+        gameManager.setColorCode(((playerColor) + 1) % 4);
+        
+        // build settlement if requirements are met
+        if (playerResources.CheckSettlement() == true)
+        {
+            bPmanager.buildSettlement();
+            // possible addition of aiclick
+        }
+        else
+        {
+            Debug.Log(playerTag + " not enough resources for settlement");
+        }
+
+        // change state
+        placedSettlements = true;
+    }
+
+    // upgrade settlement to city
+    public void UpgradeCity()
+    {
+        upgradedCity = true;
     }
 
     // check if cards are more than 7
@@ -137,6 +205,28 @@ public class AIScript : MonoBehaviour
         {
             //Debug.Log(playerTag + " card amount: " + resources.GetTotalCards());
         }
+    }
+
+    // ai picks random location for robber
+    // index out of range errors present but the code works
+    public void PickRobberLocation()
+    {
+        // create list to store available locations
+        List<GameObject> availableLocations = new List<GameObject>();
+
+        // find all active cylinders
+        foreach (GameObject availableRob in GameObject.FindGameObjectsWithTag("moveRob"))
+        {
+            // add to list
+            availableLocations.Add(availableRob);
+        }
+
+        // choose random hex
+        int chooseRob = UnityEngine.Random.Range(0, availableLocations.Count);
+        // find chosen hex position
+        Vector3 chooseLocation = availableLocations[chooseRob].transform.position;
+        // simulate click at position
+        gameManager.AIClick(chooseLocation);
     }
 
     IEnumerator RollDice()
