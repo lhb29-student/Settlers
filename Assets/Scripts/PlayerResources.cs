@@ -24,6 +24,23 @@ public class PlayerResources : MonoBehaviour
         totalCards = woodResource + woolResource + wheatResource + oreResource + brickResource;
     }
 
+    public bool CheckSettlement()
+    {
+        // check resource requirement
+        if (woodResource >= 1 && brickResource >= 1 && woolResource >= 1 && wheatResource >= 1)
+        {
+            woodResource--;
+            brickResource--;
+            woolResource--;
+            wheatResource--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void DiscardResource()
     {
         // store resource count
@@ -74,53 +91,65 @@ public class PlayerResources : MonoBehaviour
     {
         return totalCards;
     }
-
-    public void AddWood()
+    //reduce the number of necessary methods used for adding/subtracting resources
+    //Adding resources
+    public void AddWood(int i)
     {
-        woodResource++;
+        woodResource = woodResource + i;
     }
-    public void AddWool()
+    public void AddWool(int i)
     {
-        woolResource++;
+        woolResource = woolResource + i;
     }
-    public void AddWheat()
+    public void AddWheat(int i)
     {
-        wheatResource++;
+        wheatResource = wheatResource + i;
     }
-    public void AddOre()
+    public void AddOre(int i)
     {
-        oreResource++;
+        oreResource = oreResource + i;
     }
-    public void AddBrick()
+    public void AddBrick(int i)
     {
-        brickResource++;
-    }
-
-    public void RemoveWood()
-    {
-        woodResource--;
-    }
-    public void RemoveWool()
-    {
-        woolResource--;
-    }
-    public void RemoveWheat()
-    {
-        wheatResource--;
-    }
-    public void RemoveOre()
-    {
-        oreResource--;
-    }
-    public void RemoveBrick()
-    {
-        brickResource--;
+        brickResource = brickResource + i;
     }
 
+    //Subtracting resources
+    public void RemoveWood(int i)
+    {
+        woodResource = woodResource - i;
+    }
+    public void RemoveWool(int i)
+    {
+        woolResource = woodResource - i;
+    }
+    public void RemoveWheat(int i)
+    {
+        wheatResource = wheatResource - i;
+    }
+    public void RemoveOre(int i)
+    {
+        oreResource = oreResource - i;
+    }
+    public void RemoveBrick(int i)
+    {
+        brickResource = brickResource - i;
+    }
+
+    //Returing the type of resource; 
+    public int returnResource(int i)
+    {
+        if (i == 0) { return woodResource; }
+        else if (i == 1) { return woolResource; }
+        else if (i == 2) { return wheatResource; }
+        else if (i == 3) { return oreResource; }
+        else { return brickResource; }
+    }
+
+    //Used for the monopoly event;
     public int loseWood()
     {
         int lose = 0;
-        totalCards = totalCards - woodResource;
         lose = woodResource;
         woodResource = 0;
         return lose;
@@ -128,7 +157,6 @@ public class PlayerResources : MonoBehaviour
     public int loseWool()
     {
         int lose = 0;
-        totalCards = totalCards - woolResource;
         lose = woolResource;
         woolResource = 0;
         return lose;
@@ -136,7 +164,6 @@ public class PlayerResources : MonoBehaviour
     public int loseWheat()
     {
         int lose = 0;
-        totalCards = totalCards - wheatResource;
         lose = wheatResource;
         wheatResource = 0;
         return lose;
@@ -144,7 +171,6 @@ public class PlayerResources : MonoBehaviour
     public int loseOre()
     {
         int lose = 0;
-        totalCards = totalCards - oreResource;
         lose = oreResource;
         oreResource = 0;
         return lose;
@@ -152,35 +178,9 @@ public class PlayerResources : MonoBehaviour
     public int loseBrick()
     {
         int lose = 0;
-        totalCards = totalCards - brickResource;
         lose = brickResource;
         brickResource = 0;
         return lose;
     }
 
-    public void AddMoreWood(int i)
-    {
-        woodResource = woodResource + i;
-        totalCards = totalCards + i;
-    }
-    public void AddMoreWool(int i)
-    {
-        woolResource = woolResource + i;
-        totalCards = totalCards + i;
-    }
-    public void AddMoreWheat(int i)
-    {
-        wheatResource = wheatResource + i;
-        totalCards = totalCards + i;
-    }
-    public void AddMoreOre(int i)
-    {
-        oreResource = oreResource + i;
-        totalCards = totalCards + i;
-    }
-    public void AddMoreBrick(int i)
-    {
-        brickResource = brickResource + i;
-        totalCards = totalCards + i;
-    }
 }

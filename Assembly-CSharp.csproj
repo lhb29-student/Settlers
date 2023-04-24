@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D8572806-45C6-D2BC-1BD7-21DE9B048305}</ProjectGuid>
+    <ProjectGuid>{09CB44F6-DA89-488B-735F-B5CA396A1005}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,7 +56,9 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\tradeDisplay.cs" />
     <Compile Include="Assets\Scripts\PlayerResources.cs" />
+    <Compile Include="Assets\Scripts\Trading.cs" />
     <Compile Include="Assets\Scripts\Hex.cs" />
     <Compile Include="Assets\Scripts\CardManager.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Assets\Assets\GameManager.cs" />
     <Compile Include="Assets\Scripts\HexCoords.cs" />
     <Compile Include="Assets\Scripts\DiceRoll.cs" />
+    <Compile Include="Assets\Scripts\TradingUI.cs" />
     <Compile Include="Assets\Scripts\Players.cs" />
     <Compile Include="Assets\Scripts\TerrainType.cs" />
     <Compile Include="Assets\Scripts\tokenManager.cs" />

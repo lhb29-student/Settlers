@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // simulate click
     public void AIClick(Vector3 clickPos)
     {
         // creates a sphere that interacts with whatever is near the click position

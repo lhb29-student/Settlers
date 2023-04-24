@@ -79,11 +79,14 @@ public class AIScript : MonoBehaviour
         {
             CheckCards();
 
-            // ai move bandit
-            if (boardManager.moveBandit == true)
+            if (boardManager.currentP == playerTag)
             {
-                // move bandit
-                PickRobberLocation();
+                // ai move bandit
+                if (boardManager.moveBandit == true)
+                {
+                    // move bandit
+                    PickRobberLocation();
+                }
             }
         }
     }
@@ -92,7 +95,7 @@ public class AIScript : MonoBehaviour
     IEnumerator AIRoutine()
     {
         routineStart = true;
-        
+
         // roll dice
         if (boardManager.canRoll && boardManager.gameStart == true)
         {
@@ -166,7 +169,7 @@ public class AIScript : MonoBehaviour
 
         // set color code
         gameManager.setColorCode(((playerColor) + 1) % 4);
-        
+
         // build settlement if requirements are met
         if (playerResources.CheckSettlement() == true)
         {

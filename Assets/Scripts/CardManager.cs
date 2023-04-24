@@ -188,27 +188,27 @@ public class CardManager : MonoBehaviour
         
         if (rt == 0)
         {
-            inPlayResources.AddBrick();
+            inPlayResources.AddBrick(1);
             yopCount++;
         }
         else if (rt == 1)
         {
-            inPlayResources.AddWood();
+            inPlayResources.AddWood(1);
             yopCount++;
         }
         else if (rt == 2)
         {
-            inPlayResources.AddOre();
+            inPlayResources.AddOre(1);
             yopCount++;
         }
         else if (rt == 3)
         {
-            inPlayResources.AddWheat();
+            inPlayResources.AddWheat(1);
             yopCount++;
         }
         else if (rt == 4)
         {
-            inPlayResources.AddWool();
+            inPlayResources.AddWool(1);
             yopCount++;
         }
 
@@ -232,7 +232,7 @@ public class CardManager : MonoBehaviour
                     grabBrick = grabBrick + pl.loseOre();
                 }
             }
-            inPlayResources.AddMoreBrick(grabBrick);
+            inPlayResources.AddBrick(grabBrick);
             
         }
         else if (rt == 1)
@@ -245,7 +245,7 @@ public class CardManager : MonoBehaviour
                     grabWood = grabWood + pl.loseBrick();
                 }
             }
-            inPlayResources.AddMoreWood(grabWood);
+            inPlayResources.AddWood(grabWood);
             
         }
         else if (rt == 2)
@@ -258,7 +258,7 @@ public class CardManager : MonoBehaviour
                     grabOre = grabOre + pl.loseOre();
                 }
             }
-            inPlayResources.AddMoreOre(grabOre);
+            inPlayResources.AddOre(grabOre);
             
         }
         else if (rt == 3)
@@ -271,7 +271,7 @@ public class CardManager : MonoBehaviour
                     grabGrain = grabGrain + pl.loseWheat();
                 }
             }
-            inPlayResources.AddMoreWheat(grabGrain);
+            inPlayResources.AddWheat(grabGrain);
         }
         else if (rt == 4)
         {
@@ -283,7 +283,7 @@ public class CardManager : MonoBehaviour
                     grabWool = grabWool + pl.loseWool();
                 }
             }
-            inPlayResources.AddMoreWool(grabWool);
+            inPlayResources.AddWool(grabWool);
         }
         closeResourseDisplay();
     }

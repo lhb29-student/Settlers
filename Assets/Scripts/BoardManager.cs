@@ -2,6 +2,7 @@ using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int totalRoadsPlaced = 0;
     [SerializeField] private int rotatePlayer;
     [SerializeField] private GameObject allRoads;
+    [SerializeField] private GameObject playerIndicator;
+    [SerializeField] private TMPro.TextMeshProUGUI diceText;
 
     public bool settlementPlaced = false;
     public bool roadPlaced = false;
@@ -24,6 +27,7 @@ public class BoardManager : MonoBehaviour
 
     private GameManager gm;
     private BPmanager bPManager;
+    private GameObject debugMenu;
     public Vector3 housePos;
 
     public int diceNum;
@@ -43,7 +47,9 @@ public class BoardManager : MonoBehaviour
 
         gm = GetComponent<GameManager>();
         bPManager = GetComponent<BPmanager>();
+        debugMenu = GameObject.Find("Debug");
         hexes = new List<Hex>();
+        diceText.text = diceNum.ToString();
         
         // add all hex into list
         foreach (Transform child in transform)
@@ -73,6 +79,8 @@ public class BoardManager : MonoBehaviour
 
     void Update()
     {
+        diceText.text = diceNum.ToString();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             NextPlayer();
@@ -185,6 +193,8 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+        MoveIndicator();
+
         if (gameStart == false)
         {
             // counts roads placed until all players are done placing
@@ -203,22 +213,104 @@ public class BoardManager : MonoBehaviour
         {
             FindPlayer();
         }
+
+        // toggle debug menu
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if (debugMenu.activeSelf == true)
+            {
+                debugMenu.SetActive(false);
+            }
+            else
+            {
+                debugMenu.SetActive(true);
+            }
+        }
+    }
+
+    public void MoveIndicator()
+    {
+        if (currentP == "p1")
+        {
+            playerIndicator.transform.position = new Vector3(732.5f, 175 + 209.4f, 0);
+        }
+        else if (currentP == "p2")
+        {
+            playerIndicator.transform.position = new Vector3(732.5f, 135 + 209.4f, 0);
+        }
+        else if (currentP == "p3")
+        {
+            playerIndicator.transform.position = new Vector3(732.5f, 95 + 209.4f , 0);
+        }
+        else if (currentP == "p4")
+        {
+            playerIndicator.transform.position = new Vector3(732.5f, 55 + 209.4f, 0);
+        }
     }
 
     // called by aiscript
     public void NextPlayer()
     {
-        gameStart = true;
-        canRoll = true;
-        rotatePlayer++;
-        //Debug.Log("Next player");
+        if (canRoll == false)
+        {
+            gameStart = true;
+            canRoll = true;
+            rotatePlayer++;
+            //Debug.Log("Next player");
+        }
+        else
+        {
+            Debug.Log("Dice not rolled");
+        }
+    }
+
+    public void PlayerRoll()
+    {
+        if (canRoll == true)
+        {
+            canRoll = false;
+
+            // allocate resource when dice is rolled
+            diceNum = GetDiceRoll();
+
+            // move robber if rolled 7
+            if (diceNum == 7)
+            {
+                //Debug.Log("Move bandit");
+                moveBandit = true;
+                List<PlayerResources> playResources = new List<PlayerResources>();
+                List<AIScript> aIScripts = new List<AIScript>();
+                GameObject allPlayers = GameObject.Find("Players");
+
+                foreach (Transform child in allPlayers.transform)
+                {
+                    playResources.Add(child.GetComponent<PlayerResources>());
+                    if (child.GetComponent<AIScript>() != null)
+                    {
+                        aIScripts.Add(child.GetComponent<AIScript>());
+                        child.GetComponent<AIScript>().checkCards = true;
+                    }
+
+                    Debug.Log("aiscript count: " + aIScripts.Count);
+                    Debug.Log("Resource count: " + child.GetComponent<PlayerResources>().GetTotalCards());
+                }
+            }
+            else
+            {
+                AllocateResource();
+            }
+        }
+        else
+        {
+            Debug.Log("Already rolled dice");
+        }
     }
 
     public void RollDice()
     {
         // allocate resource when dice is rolled
         diceNum = GetDiceRoll();
-        
+
         // move robber if rolled 7
         if (diceNum == 7)
         {
@@ -228,7 +320,7 @@ public class BoardManager : MonoBehaviour
             List<AIScript> aIScripts = new List<AIScript>();
             GameObject allPlayers = GameObject.Find("Players");
 
-            foreach(Transform child in allPlayers.transform)
+            foreach (Transform child in allPlayers.transform)
             {
                 playResources.Add(child.GetComponent<PlayerResources>());
                 if (child.GetComponent<AIScript>() != null)
@@ -246,6 +338,7 @@ public class BoardManager : MonoBehaviour
             AllocateResource();
         }
     }
+
     public void RoadCheck()
     {
         totalRoadsPlaced = 0;
@@ -338,23 +431,23 @@ public class BoardManager : MonoBehaviour
     {
         if (terrainType == "Hills")
         {
-            chosenPlayer.GetComponent<PlayerResources>().AddBrick();
+            chosenPlayer.GetComponent<PlayerResources>().AddBrick(1);
         }
         else if (terrainType == "Forest")
         {
-            chosenPlayer.GetComponent<PlayerResources>().AddWood();
+            chosenPlayer.GetComponent<PlayerResources>().AddWood(1);
         }
         else if (terrainType == "Mountains")
         {
-            chosenPlayer.GetComponent<PlayerResources>().AddOre();
+            chosenPlayer.GetComponent<PlayerResources>().AddOre(1);
         }
         else if (terrainType == "Fields")
         {
-            chosenPlayer.GetComponent<PlayerResources>().AddWheat();
+            chosenPlayer.GetComponent<PlayerResources>().AddWheat(1);
         }
         else if (terrainType == "Pasture")
         {
-            chosenPlayer.GetComponent<PlayerResources>().AddWool();
+            chosenPlayer.GetComponent<PlayerResources>().AddWool(1);
         }
     }
 
