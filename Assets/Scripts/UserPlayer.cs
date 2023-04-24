@@ -93,4 +93,9 @@ public class UserPlayer : MonoBehaviour
     {
         playerScore = buildScore + hasLongRoad + hasLargeArmy;
     }
+
+    public int returnPlayerScore()
+    {
+        return playerScore;
+    }
 }
