@@ -36,8 +36,10 @@ public class DiceRoll : MonoBehaviour
     public int rollDice()
     {
         // range 2 ~ 12
-        diceRoll = Random.Range(2,13);
-        Debug.Log("Dice roll: " + diceRoll);
-        return diceRoll;
+        int diceRoll1 = Random.Range(1, 7);
+        int diceRoll2 = Random.Range(1, 7);
+        int total = diceRoll1 + diceRoll2;
+        Debug.Log("Dice roll: " + total);
+        return total;
     }
 }

@@ -11,11 +11,13 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int playerTurn;
     [SerializeField] private int playerCount = 0;
     [SerializeField] private int p4Settlement = 0;
-    [SerializeField] public int playersAllocated = 0;
+    public int playersAllocated = 0;
     [SerializeField] private int totalRoadsPlaced = 0;
-    [SerializeField] private int rotatePlayer;
+    public int rotatePlayer;
     [SerializeField] private GameObject allRoads;
     [SerializeField] private GameObject playerIndicator;
+    [SerializeField] private GameObject nextPlayerButton;
+    [SerializeField] private GameObject diceButton;
     [SerializeField] private TMPro.TextMeshProUGUI diceText;
 
     public bool settlementPlaced = false;
@@ -50,7 +52,10 @@ public class BoardManager : MonoBehaviour
         debugMenu = GameObject.Find("Debug");
         hexes = new List<Hex>();
         diceText.text = diceNum.ToString();
-        
+
+        // hide debug menu on start
+        debugMenu.SetActive(false);
+
         // add all hex into list
         foreach (Transform child in transform)
         {
@@ -99,6 +104,7 @@ public class BoardManager : MonoBehaviour
         // for testing
         if (Input.GetKeyDown(KeyCode.P))
         {
+            canRoll = true;
             RollDice();
         }
 
@@ -194,6 +200,7 @@ public class BoardManager : MonoBehaviour
         }
 
         MoveIndicator();
+        UIController();
 
         if (gameStart == false)
         {
@@ -211,7 +218,8 @@ public class BoardManager : MonoBehaviour
         // testing
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            FindPlayer();
+            GameObject.Find("Land").GetComponent<tokenManager>().availableRobberSpace();
+            //FindPlayer();
         }
 
         // toggle debug menu
@@ -228,23 +236,56 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void UIController()
+    {
+        // dice button is set to half transparent if player cannot roll
+        if (currentP == "p1")
+        {
+            if (canRoll == true && totalRoadsPlaced >= 8)
+            {
+                diceButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            }
+            else
+            {
+                diceButton.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+            }
+        }
+        else
+        {
+            diceButton.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+        }
+
+        // skip turn button set to normal transparency when player allowed to end turn
+        if (canRoll == false && totalRoadsPlaced >= 8)
+        {
+            if (currentP == "p1")
+            {
+                nextPlayerButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            }
+        }
+        else
+        {
+            nextPlayerButton.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+        }
+    }
+
     public void MoveIndicator()
     {
         if (currentP == "p1")
         {
-            playerIndicator.transform.position = new Vector3(732.5f, 175 + 209.4f, 0);
+            playerIndicator.transform.position = new Vector3(670, 175 + 205f, 0);
         }
         else if (currentP == "p2")
         {
-            playerIndicator.transform.position = new Vector3(732.5f, 135 + 209.4f, 0);
+            playerIndicator.transform.position = new Vector3(670, 135 + 205f, 0);
         }
         else if (currentP == "p3")
         {
-            playerIndicator.transform.position = new Vector3(732.5f, 95 + 209.4f , 0);
+            playerIndicator.transform.position = new Vector3(670, 95 + 205f, 0);
         }
         else if (currentP == "p4")
         {
-            playerIndicator.transform.position = new Vector3(732.5f, 55 + 209.4f, 0);
+            playerIndicator.transform.position = new Vector3(670, 55 + 205f, 0);
         }
     }
 
@@ -253,6 +294,7 @@ public class BoardManager : MonoBehaviour
     {
         if (canRoll == false)
         {
+            Debug.Log(currentP + " ended their turn");
             gameStart = true;
             canRoll = true;
             rotatePlayer++;
@@ -277,10 +319,13 @@ public class BoardManager : MonoBehaviour
             if (diceNum == 7)
             {
                 //Debug.Log("Move bandit");
-                moveBandit = true;
                 List<PlayerResources> playResources = new List<PlayerResources>();
                 List<AIScript> aIScripts = new List<AIScript>();
                 GameObject allPlayers = GameObject.Find("Players");
+                tokenManager tokenM = GameObject.Find("Land").GetComponent<tokenManager>();
+
+                tokenM.availableRobberSpace();
+                moveBandit = true;
 
                 foreach (Transform child in allPlayers.transform)
                 {
@@ -315,17 +360,25 @@ public class BoardManager : MonoBehaviour
         if (diceNum == 7)
         {
             //Debug.Log("Move bandit");
-            moveBandit = true;
+
+            // initialize fields and lists
             List<PlayerResources> playResources = new List<PlayerResources>();
             List<AIScript> aIScripts = new List<AIScript>();
             GameObject allPlayers = GameObject.Find("Players");
+            tokenManager tokenM = GameObject.Find("Land").GetComponent<tokenManager>();
+
+            tokenM.availableRobberSpace();
+            moveBandit = true;
 
             foreach (Transform child in allPlayers.transform)
             {
                 playResources.Add(child.GetComponent<PlayerResources>());
+                // if player is an ai
                 if (child.GetComponent<AIScript>() != null)
                 {
+                    // ai checks and remove excess cards
                     aIScripts.Add(child.GetComponent<AIScript>());
+                    // bool modifier for ai
                     child.GetComponent<AIScript>().checkCards = true;
                 }
 

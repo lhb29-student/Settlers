@@ -24,6 +24,7 @@ public class BPmanager : MonoBehaviour
     [SerializeField] private bool isStartInter;
     [SerializeField] private HashSet<Intersect> startingInters = new HashSet<Intersect>();
     [SerializeField] private GameManager gm;
+    [SerializeField] private BoardManager boardManager;
 
 
     void Update()
@@ -31,7 +32,10 @@ public class BPmanager : MonoBehaviour
         int turn = gm.getColorCode();
         playTurn = (players)turn;
         Enum enumPlay = playTurn;
-        playNum = Convert.ToInt32(enumPlay) - 1;
+        playNum = boardManager.rotatePlayer % 4;
+        //playNum = Convert.ToInt32(enumPlay) - 1;
+        //Debug.Log("playNum: " + playNum);
+
     }
 
     public void AvailableInters()

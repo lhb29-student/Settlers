@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
@@ -135,7 +136,7 @@ public class AIScript : MonoBehaviour
         // all moves finished
         if (diceRolled == true && placedRoads == true && placedSettlements == true && upgradedCity == true)
         {
-            Debug.Log(playerTag + " ended turn");
+            //Debug.Log(playerTag + " ended turn");
             boardManager.NextPlayer();
             ResetStates();
         }
@@ -164,7 +165,7 @@ public class AIScript : MonoBehaviour
     public void CheckSettlements()
     {
 
-        // bug settlement color doesnt change according to player color
+        // bug: settlement color doesnt change according to player color
 
 
         // set color code
@@ -173,6 +174,7 @@ public class AIScript : MonoBehaviour
         // build settlement if requirements are met
         if (playerResources.CheckSettlement() == true)
         {
+            // buildsettlement if available
             bPmanager.buildSettlement();
             // possible addition of aiclick
         }
@@ -188,6 +190,47 @@ public class AIScript : MonoBehaviour
     // upgrade settlement to city
     public void UpgradeCity()
     {
+        // set color code
+        gameManager.setColorCode(((playerColor) + 1) % 4);
+
+        // upgrade city if requirements are met
+        if (playerResources.CheckCity() == true)
+        {
+            // determine random settlement to upgrade
+            Debug.Log(playerTag + " upgraded a settlement");
+            bPmanager.setToCity();
+
+            // create list to store available locations
+            List<GameObject> availableLocations = new List<GameObject>();
+
+            // find all active cylinders
+            foreach (GameObject availablePick in GameObject.FindGameObjectsWithTag("Intersect"))
+            {
+                // only get player controlled settlements
+                if (availablePick.GetComponent<Intersect>().GetPlayer().ToString() == playerTag)
+                {
+                    // add to list
+                    availableLocations.Add(availablePick);
+                }
+            }
+
+            if (availableLocations.Count > 0)
+            {
+                Debug.Log("available city locations: " + availableLocations.Count);
+                // choose random hex
+                int choosePick = UnityEngine.Random.Range(0, availableLocations.Count);
+                // find chosen hex position
+                Vector3 chooseLocation = availableLocations[choosePick].transform.position;
+                // simulate click at position
+                gameManager.AIClick(chooseLocation);
+            }
+            else
+            {
+                Debug.Log("no locations available for city");
+            }
+        }
+
+        // change state
         upgradedCity = true;
     }
 

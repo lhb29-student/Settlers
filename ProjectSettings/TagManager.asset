@@ -15,6 +15,7 @@ TagManager:
   - viewOnly
   - Road
   - Intersect
+  - canPick
   layers:
   - Default
   - TransparentFX

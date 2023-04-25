@@ -24,21 +24,66 @@ public class PlayerResources : MonoBehaviour
         totalCards = woodResource + woolResource + wheatResource + oreResource + brickResource;
     }
 
-    public bool CheckSettlement()
+    public bool CheckRoad()
     {
         // check resource requirement
-        if (woodResource >= 1 && brickResource >= 1 && woolResource >= 1 && wheatResource >= 1)
+        if (woodResource >= 1 && brickResource >= 1)
         {
-            woodResource--;
-            brickResource--;
-            woolResource--;
-            wheatResource--;
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    // remove cost for road
+    public void RoadCost()
+    {
+        woodResource--;
+        brickResource--;
+    }
+
+    public bool CheckSettlement()
+    {
+        // check resource requirement
+        if (woodResource >= 1 && brickResource >= 1 && woolResource >= 1 && wheatResource >= 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // remove cost for settlement
+    public void SettlementCost()
+    {
+        woodResource--;
+        brickResource--;
+        woolResource--;
+        wheatResource--;
+    }
+
+    public bool CheckCity()
+    {
+        // check resource requirement
+        if (wheatResource >= 2 && oreResource >= 3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // remove cost for city
+    public void CityCost()
+    {
+        wheatResource -= 2;
+        oreResource -= 3;
     }
 
     public void DiscardResource()
