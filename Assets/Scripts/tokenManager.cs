@@ -8,11 +8,13 @@ public class tokenManager : MonoBehaviour
     [SerializeField] private List<tokenData> tData;
     [SerializeField] private GameObject robber;
     [SerializeField] private Hex WhereRobber;
+    [SerializeField] private BoardManager boardManager;
     // Start is called before the first frame update
     void Start()
     {
         //Debug.Log(pt[0].GetComponentInParent<Hex>().getType());
         //placeDownTokens();
+        boardManager = GameObject.Find("Land").GetComponent<BoardManager>();
     }
 
     // Update is called once per frame
@@ -56,6 +58,9 @@ public class tokenManager : MonoBehaviour
         WhereRobber = newHex;
         WhereRobber.setRobber(true);
         robber.transform.position = newHex.GetComponent<Transform>().position + new Vector3(0.0f, 1.7f, 0.0f);
+
+        // set movebandit status to allow player to end turn
+        boardManager.moveBandit = false;
     }
 
     public void availableRobberSpace()

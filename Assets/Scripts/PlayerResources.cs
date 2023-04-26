@@ -162,23 +162,39 @@ public class PlayerResources : MonoBehaviour
     //Subtracting resources
     public void RemoveWood(int i)
     {
-        woodResource = woodResource - i;
+        Debug.Log("remove " + i + " wood");
+        if (woodResource >= i)
+        {
+            woodResource = woodResource - i;
+        }
     }
     public void RemoveWool(int i)
     {
-        woolResource = woodResource - i;
+        if (woolResource >= i)
+        {
+            woolResource = woolResource - i;
+        }
     }
     public void RemoveWheat(int i)
     {
-        wheatResource = wheatResource - i;
+        if (wheatResource >= i)
+        {
+            wheatResource = wheatResource - i;
+        }
     }
     public void RemoveOre(int i)
     {
-        oreResource = oreResource - i;
+        if (oreResource >= i)
+        {
+            oreResource = oreResource - i;
+        }
     }
     public void RemoveBrick(int i)
     {
-        brickResource = brickResource - i;
+        if (brickResource >= i)
+        {
+            brickResource = brickResource - i;
+        }
     }
 
     //Returing the type of resource; 

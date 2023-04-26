@@ -1,6 +1,7 @@
 using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +42,7 @@ public class BoardManager : MonoBehaviour
     public string currentP;
     public bool canRoll = true;
     public bool moveBandit = false;
+    public bool playerCheckCards = false;
 
 
     void Start()
@@ -197,7 +199,7 @@ public class BoardManager : MonoBehaviour
             {
                 gameStart = true;
             }
-        }
+        }        
 
         MoveIndicator();
         UIController();
@@ -273,26 +275,26 @@ public class BoardManager : MonoBehaviour
     {
         if (currentP == "p1")
         {
-            playerIndicator.transform.position = new Vector3(670, 175 + 205f, 0);
+            playerIndicator.transform.position = new Vector3(1150, 655, 0);
         }
         else if (currentP == "p2")
         {
-            playerIndicator.transform.position = new Vector3(670, 135 + 205f, 0);
+            playerIndicator.transform.position = new Vector3(1150, 615, 0);
         }
         else if (currentP == "p3")
         {
-            playerIndicator.transform.position = new Vector3(670, 95 + 205f, 0);
+            playerIndicator.transform.position = new Vector3(1150, 575, 0);
         }
         else if (currentP == "p4")
         {
-            playerIndicator.transform.position = new Vector3(670, 55 + 205f, 0);
+            playerIndicator.transform.position = new Vector3(1150, 535, 0);
         }
     }
 
     // called by aiscript
     public void NextPlayer()
     {
-        if (canRoll == false)
+        if (canRoll == false && moveBandit == false)
         {
             Debug.Log(currentP + " ended their turn");
             gameStart = true;
@@ -326,6 +328,7 @@ public class BoardManager : MonoBehaviour
 
                 tokenM.availableRobberSpace();
                 moveBandit = true;
+                playerCheckCards = true;
 
                 foreach (Transform child in allPlayers.transform)
                 {
