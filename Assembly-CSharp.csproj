@@ -72,12 +72,14 @@
     <Compile Include="Assets\Scripts\Players.cs" />
     <Compile Include="Assets\Scripts\TerrainType.cs" />
     <Compile Include="Assets\Scripts\tokenManager.cs" />
+    <Compile Include="Assets\DiceSide.cs" />
     <Compile Include="Assets\Scripts\Cards.cs" />
     <Compile Include="Assets\Scripts\HexMaterials.cs" />
     <Compile Include="Assets\Scripts\Habour.cs" />
     <Compile Include="Assets\Scripts\HexData.cs" />
     <Compile Include="Assets\Scripts\CardHand.cs" />
     <Compile Include="Assets\Scripts\PlayLongRoad.cs" />
+    <Compile Include="Assets\Dice.cs" />
     <Compile Include="Assets\Scripts\placeToken.cs" />
     <Compile Include="Assets\Scripts\tokenData.cs" />
     <Compile Include="Assets\Scripts\HexGrid.cs" />
@@ -103,13 +105,14 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\KayKit Medieval Builder Pack 1.0\License.txt" />
+    <None Include="Assets\Imports\KayKit Medieval Builder Pack 1.0\License.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Imports\Dice_6\Documentation\Readmy.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

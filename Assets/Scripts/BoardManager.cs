@@ -8,53 +8,54 @@ using UnityEngine.UI;
 public class BoardManager : MonoBehaviour
 {
     
-    [SerializeField] private int currentPlayer;
-    [SerializeField] private int playerTurn;
-    [SerializeField] private int playerCount = 0;
-    [SerializeField] private int p4Settlement = 0;
-    public int playersAllocated = 0;
-    [SerializeField] private int totalRoadsPlaced = 0;
-    public int rotatePlayer;
-    [SerializeField] private GameObject allRoads;
+    [SerializeField] private int currentPlayer; // id of current player
+    [SerializeField] private int playerTurn; // id of current player
+    [SerializeField] private int playerCount = 0; // players that already placed starting settlement
+    [SerializeField] private int p4Settlement = 0; // used for allowing final player to place twice
+    [SerializeField] private int totalRoadsPlaced = 0; // total starting roads
+    [SerializeField] private GameObject allRoads; // all roads
+    // UI fields
     [SerializeField] private GameObject playerIndicator;
     [SerializeField] private GameObject nextPlayerButton;
     [SerializeField] private GameObject diceButton;
+    [SerializeField] private GameObject debugMenu;
     [SerializeField] private TMPro.TextMeshProUGUI diceText;
-
-    public bool settlementPlaced = false;
-    public bool roadPlaced = false;
-    private bool firstRound = true;
-    private bool settingUp = true;
-    private bool repeatSetup = true;
-    public bool gameStart = false;
-
+    
+    private bool firstRound = true; // first round of setup
+    private bool settingUp = true; // is setup phase
+    private bool repeatSetup = true; // second round of setup
+    // scripts
     private GameManager gm;
     private BPmanager bPManager;
-    private GameObject debugMenu;
-    public Vector3 housePos;
 
-    public int diceNum;
-    public List<Hex> hexes;
-    public List<Road> roads;
-    
+    public int playersAllocated = 0; // players already placed starting settlement
+    public int rotatePlayer; // rotate between 4 players
+    public int diceNum; // dice num
+    public bool settlementPlaced = false; // has placed starting settlement
+    public bool roadPlaced = false; // has placed starting road
+    public bool gameStart = false; // setup finish
+    public bool getDice = false; // has dice number been generated
+    public Vector3 housePos; // location of starting settlement placed
+    public List<Hex> hexes; // list of all hexes
+    public List<Road> roads; // list of all roads
 
     // accessed by ai script
-    public string currentP;
-    public bool canRoll = true;
-    public bool moveBandit = false;
-    public bool playerCheckCards = false;
+    public string currentP; // current player, tag
+    public bool canRoll = true; // can ai roll dice
+    public bool moveBandit = false; // can ai movebandit
+    public bool playerCheckCards = false; // is 7 rolled
 
 
     void Start()
     {
+        // init
         moveBandit = false;
-
+        // init
         gm = GetComponent<GameManager>();
         bPManager = GetComponent<BPmanager>();
         debugMenu = GameObject.Find("Debug");
         hexes = new List<Hex>();
         diceText.text = diceNum.ToString();
-
         // hide debug menu on start
         debugMenu.SetActive(false);
 
@@ -66,7 +67,7 @@ public class BoardManager : MonoBehaviour
                 hexes.Add(child.GetComponent<Hex>());
             }
         }
-
+        // add all roads into list
         foreach (Transform child in allRoads.transform)
         {
             if (child.GetComponent<Road>() != null)
@@ -78,7 +79,7 @@ public class BoardManager : MonoBehaviour
         // checker to track how many players have placed their settlements
         playerCount++;
 
-        // set starting player
+        // set starting player, a random number is chosen and the matching player starts
         playerTurn = Random.Range(0, 4);
         // chosen player start
         StartCoroutine(PlaceGameObject());
@@ -86,28 +87,19 @@ public class BoardManager : MonoBehaviour
 
     void Update()
     {
+        // display dice number on ui
         diceText.text = diceNum.ToString();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NextPlayer();
-        }
-
+        // has setup finished
         if (gameStart == true)
         {
+            // generate current player tag
             currentP = "p" + ((rotatePlayer % 4) + 1);
         }
         else
         {
             // debug find player
             currentP = "p" + ((currentPlayer % 4) + 1);
-        }
-
-        // for testing
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            canRoll = true;
-            RollDice();
         }
 
         // current player should be same as player's turn
@@ -119,9 +111,11 @@ public class BoardManager : MonoBehaviour
             StartCoroutine(PlaceGameObject());
         }
 
+        // setup algorithm
         if (settlementPlaced == true && roadPlaced == true && settingUp)
         {
             // first round
+            // players rotate normally during the first round
             if (firstRound)
             {
                 settlementPlaced = false;
@@ -133,27 +127,29 @@ public class BoardManager : MonoBehaviour
 
                 playerCount++;
             }
-
             // second round
             // last player places again and player's turns goes the other way round
             else
             {
                 // for last player to place another settlement
+                // if last player has not placed second settlement
                 if (repeatSetup)
                 {
                     settlementPlaced = false;
                     roadPlaced = false;
+                    // place settlement coroutine
                     StartCoroutine(PlaceGameObject());
 
                     repeatSetup = false;
 
                     p4Settlement++;
+                    // last player gets to place twice
                     if (p4Settlement == 2)
                     {
                         StartCoroutine(PlaceGameObject());
                     }
                 }
-                // player turns goes the other way round
+                // player turns goes the other way round, instead of going up it goes down to rotate backwards
                 else
                 {
                     settlementPlaced = false;
@@ -167,7 +163,6 @@ public class BoardManager : MonoBehaviour
                     AllocateStartingResource();
                     //playersAllocated++;
                 }
-
                 // tracker
                 playerCount--;
             }
@@ -178,13 +173,11 @@ public class BoardManager : MonoBehaviour
         {
             firstRound = false;
         }
-
         // setup phase finish
         if (playerCount == 0)
         {
             settingUp = false;
         }
-
         // allocate resource for final player
         if (!settingUp && playersAllocated == 8)
         {
@@ -199,17 +192,13 @@ public class BoardManager : MonoBehaviour
             {
                 gameStart = true;
             }
-        }        
-
-        MoveIndicator();
-        UIController();
-
+        }
+        // counts roads as long as setup has not finished
         if (gameStart == false)
         {
             // counts roads placed until all players are done placing
             RoadCheck();
         }
-
         // fail safe for second round
         if (currentPlayer == 0)
         {
@@ -217,12 +206,8 @@ public class BoardManager : MonoBehaviour
             playerTurn = 4;
         }
 
-        // testing
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GameObject.Find("Land").GetComponent<tokenManager>().availableRobberSpace();
-            //FindPlayer();
-        }
+        MoveIndicator();
+        UIController();
 
         // toggle debug menu
         if (Input.GetKeyDown(KeyCode.F1))
@@ -236,22 +221,40 @@ public class BoardManager : MonoBehaviour
                 debugMenu.SetActive(true);
             }
         }
+
+        // testing
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameObject.Find("Land").GetComponent<tokenManager>().availableRobberSpace();
+            //FindPlayer();
+        }
+        
+        // testing
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            canRoll = true;
+            RollDice();
+        }
     }
 
+    // this method controls ui behaviour
     public void UIController()
     {
         // dice button is set to half transparent if player cannot roll
         if (currentP == "p1")
         {
+            // player can roll
             if (canRoll == true && totalRoadsPlaced >= 8)
             {
                 diceButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             }
+            // player cannot roll
             else
             {
                 diceButton.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
             }
         }
+        // player cannot roll during setup
         else
         {
             diceButton.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
@@ -260,19 +263,23 @@ public class BoardManager : MonoBehaviour
         // skip turn button set to normal transparency when player allowed to end turn
         if (canRoll == false && totalRoadsPlaced >= 8)
         {
+            // player can end turn
             if (currentP == "p1")
             {
                 nextPlayerButton.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             }
         }
+        // player still has moves, e.g. roll dice
         else
         {
             nextPlayerButton.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
         }
     }
 
+    // moves indicator to show which player's taking their turn, white knob beside player indicator
     public void MoveIndicator()
     {
+        // definitely not a good idea to have fixed coordinates
         if (currentP == "p1")
         {
             playerIndicator.transform.position = new Vector3(1150, 655, 0);
@@ -294,6 +301,7 @@ public class BoardManager : MonoBehaviour
     // called by aiscript
     public void NextPlayer()
     {
+        // only allowed if dice is rolled, mainly for user since ai routine guarantees a roll before ending
         if (canRoll == false && moveBandit == false)
         {
             Debug.Log(currentP + " ended their turn");
@@ -308,8 +316,10 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    // called by player, through dice roll button
     public void PlayerRoll()
     {
+        // this prevents player from rolling multiple times in one round
         if (canRoll == true)
         {
             canRoll = false;
@@ -321,30 +331,36 @@ public class BoardManager : MonoBehaviour
             if (diceNum == 7)
             {
                 //Debug.Log("Move bandit");
-                List<PlayerResources> playResources = new List<PlayerResources>();
-                List<AIScript> aIScripts = new List<AIScript>();
-                GameObject allPlayers = GameObject.Find("Players");
-                tokenManager tokenM = GameObject.Find("Land").GetComponent<tokenManager>();
+                // init
+                List<PlayerResources> playResources = new List<PlayerResources>(); // access to check all player resources
+                List<AIScript> aIScripts = new List<AIScript>(); // if player is ai
+                GameObject allPlayers = GameObject.Find("Players"); // all players
+                tokenManager tokenM = GameObject.Find("Land").GetComponent<tokenManager>(); // token manager
 
+                // move robber method
                 tokenM.availableRobberSpace();
                 moveBandit = true;
-                playerCheckCards = true;
+                playerCheckCards = true; // check user cards
 
                 foreach (Transform child in allPlayers.transform)
                 {
+                    // get each player's resources
                     playResources.Add(child.GetComponent<PlayerResources>());
+                    // separate script is called if player is an ai
                     if (child.GetComponent<AIScript>() != null)
                     {
+                        // for debug to check if ai script is properly found and accessed
                         aIScripts.Add(child.GetComponent<AIScript>());
+                        // call ai checkcards script
                         child.GetComponent<AIScript>().checkCards = true;
                     }
-
-                    Debug.Log("aiscript count: " + aIScripts.Count);
-                    Debug.Log("Resource count: " + child.GetComponent<PlayerResources>().GetTotalCards());
+                    //Debug.Log("aiscript count: " + aIScripts.Count);
+                    //Debug.Log("Resource count: " + child.GetComponent<PlayerResources>().GetTotalCards());
                 }
             }
             else
             {
+                // allocate appropriate resource
                 AllocateResource();
             }
         }
@@ -363,44 +379,49 @@ public class BoardManager : MonoBehaviour
         if (diceNum == 7)
         {
             //Debug.Log("Move bandit");
-
             // initialize fields and lists
-            List<PlayerResources> playResources = new List<PlayerResources>();
-            List<AIScript> aIScripts = new List<AIScript>();
-            GameObject allPlayers = GameObject.Find("Players");
-            tokenManager tokenM = GameObject.Find("Land").GetComponent<tokenManager>();
+            List<PlayerResources> playResources = new List<PlayerResources>(); // access to check all player resources
+            List<AIScript> aIScripts = new List<AIScript>(); // if player is ai
+            GameObject allPlayers = GameObject.Find("Players"); // all players
+            tokenManager tokenM = GameObject.Find("Land").GetComponent<tokenManager>(); // token manager
 
+            // move robber method
             tokenM.availableRobberSpace();
             moveBandit = true;
 
             foreach (Transform child in allPlayers.transform)
             {
+                // get each player's resources
                 playResources.Add(child.GetComponent<PlayerResources>());
-                // if player is an ai
+                // separate script is called if player is an ai
                 if (child.GetComponent<AIScript>() != null)
                 {
-                    // ai checks and remove excess cards
+                    // for debug to check if ai script is properly found and accessed
                     aIScripts.Add(child.GetComponent<AIScript>());
-                    // bool modifier for ai
+                    // call ai checkcards script
                     child.GetComponent<AIScript>().checkCards = true;
                 }
-
-                Debug.Log("aiscript count: " + aIScripts.Count);
-                Debug.Log("Resource count: " + child.GetComponent<PlayerResources>().GetTotalCards());
+                //Debug.Log("aiscript count: " + aIScripts.Count);
+                //Debug.Log("Resource count: " + child.GetComponent<PlayerResources>().GetTotalCards());
             }
         }
         else
         {
+            // allocate appropriate resource
             AllocateResource();
         }
     }
 
+    // count how many roads have been placed, helps with determining setup phase
     public void RoadCheck()
     {
+        // reinitialise field
         totalRoadsPlaced = 0;
 
+        // finds all placed roads and add to count
         foreach (Road road in roads)
         {
+            // finds all owned roads, np as in no player owns
             if(road.GetPlayer().ToString() != "np")
             {
                 totalRoadsPlaced++;
@@ -408,6 +429,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    // place settlement
     IEnumerator PlaceGameObject()
     {
         // +1 since there is no colorcode for 0
@@ -436,6 +458,7 @@ public class BoardManager : MonoBehaviour
         // find player
         GameObject chosenPlayer = GameObject.FindGameObjectWithTag(FindPlayer());
 
+        // sets final player to place during first round of setup
         if (playersAllocated == 4)
         {
             chosenPlayer = GameObject.FindGameObjectWithTag(FinalPlayer());
@@ -463,7 +486,7 @@ public class BoardManager : MonoBehaviour
         // find hex with corresponding number
         foreach (Hex hex in hexes)
         {
-            // find hexes with same dice number
+            // find all hexes with same dice number
             if (hex.getTokenNumber() == diceNum)
             {
                 // find all intersects on hex
@@ -529,6 +552,7 @@ public class BoardManager : MonoBehaviour
     // get dice roll
     public int GetDiceRoll()
     {
-        return GameObject.Find("Canvas").GetComponent<DiceRoll>().rollDice();
+        //return GameObject.Find("Land").GetComponent<Dice>().rollDice();
+        return 0;
     }
 }

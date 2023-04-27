@@ -9,6 +9,7 @@ public class Dice : MonoBehaviour
     //Check if the dice has been thrown and if it has landed
     bool thrown;
     bool hasLanded;
+    bool hasNum = false;
     
     //The initial position of the die
     Vector3 initialPos;
@@ -53,6 +54,7 @@ public class Dice : MonoBehaviour
             SideValueCheck();
             totalRoll();
         }
+
         //if it has landed then roll again
         if(rb.IsSleeping() && hasLanded && diceResult == 0)
         {

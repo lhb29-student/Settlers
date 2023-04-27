@@ -10,32 +10,33 @@ using UnityEngine;
 public class AIScript : MonoBehaviour
 {
 
-    [SerializeField] private string playerTag;
-    [SerializeField] private int playerColor;
-    [SerializeField] private int chooseInter;
+    [SerializeField] private string playerTag; // player tag
+    [SerializeField] private int playerColor; // player color code
+    [SerializeField] private int chooseInter; // ai choose random intersect
 
-    [SerializeField] private bool isBusy = false;
-    [SerializeField] private bool diceRolled = false;
-    [SerializeField] private bool placedRoads = false;
-    [SerializeField] private bool placedSettlements = false;
-    [SerializeField] private bool upgradedCity = false;
-    [SerializeField] private bool routineStart = false;
-
+    [SerializeField] private bool isBusy = false; // can ai run setup script
+    [SerializeField] private bool diceRolled = false; // rolled dice
+    [SerializeField] private bool placedRoads = false; // placed roads
+    [SerializeField] private bool placedSettlements = false; // placed settlements
+    [SerializeField] private bool upgradedCity = false; // upgraded city
+    [SerializeField] private bool routineStart = false; // is ai coroutine running
+    // scripts
     [SerializeField] private BoardManager boardManager;
     [SerializeField] private BPmanager bPmanager;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private PlayerResources playerResources;
-    [SerializeField] private List<GameObject> intersects;
-    [SerializeField] private GameObject allIntersects;
+    [SerializeField] private List<GameObject> intersects; // list of intersects
+    [SerializeField] private GameObject allIntersects; // all intersects
 
-    public bool checkCards = false;
+    public bool checkCards = false; // modified by board manager
 
-    public BoardPiece bp;
+    public BoardPiece bp; 
     public GameObject inter;
 
 
     void Start()
     {
+        // player tag determined by user tag
         playerTag = gameObject.tag;
         allIntersects = GameObject.Find("IntersectPoints");
 
