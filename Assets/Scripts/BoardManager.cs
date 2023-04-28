@@ -48,6 +48,8 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("debug menu has been hidden by default, press f1 to hide/unhide menu");
+
         // init
         moveBandit = false;
         // init
@@ -552,7 +554,6 @@ public class BoardManager : MonoBehaviour
     // get dice roll
     public int GetDiceRoll()
     {
-        //return GameObject.Find("Land").GetComponent<Dice>().rollDice();
-        return 0;
+        return GameObject.Find("Land").GetComponent<DiceRoll>().rollDice();
     }
 }

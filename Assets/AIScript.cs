@@ -49,8 +49,9 @@ public class AIScript : MonoBehaviour
         bPmanager = GameObject.FindGameObjectWithTag("Land").GetComponent<BPmanager>();
         playerResources = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerResources>();
 
-        intersects = new List<GameObject>();
+        intersects = new List<GameObject>(); // list to store all available intersects, this is for the ai to determine settlement locations
 
+        // all intersects are added into list
         foreach (Transform child in allIntersects.transform)
         {
             intersects.Add(child.gameObject);
@@ -69,18 +70,22 @@ public class AIScript : MonoBehaviour
             // prevent coroutine from running x times
             if (isBusy == false)
             {
+                // ai setup routine
                 StartCoroutine(ChooseStarter());
             }
+            // ai runs game routine after setup
             if (routineStart == false && boardManager.gameStart == true)
             {
                 StartCoroutine(AIRoutine());
             }
         }
 
+        // if 7 is rolled ai is prompted to check cards
         if (checkCards == true)
         {
             CheckCards();
 
+            // if it's currently the ai's turn it then moves the bandit
             if (boardManager.currentP == playerTag)
             {
                 // ai move bandit
@@ -105,6 +110,7 @@ public class AIScript : MonoBehaviour
             StartCoroutine(RollDice());
         }
 
+        // padding added so that everything doesnt happen in an instant
         yield return new WaitForSeconds(0.5f);
 
         // move bandit
@@ -114,6 +120,7 @@ public class AIScript : MonoBehaviour
             boardManager.moveBandit = false;
             //Debug.Log("Bandit moved by " + playerTag);
         }
+        // this wait time is skipped if bandit is not required to be moved
         else
         {
             waitTime = 0;
@@ -121,20 +128,23 @@ public class AIScript : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
+        // ai checks requirements to build settlement
         CheckSettlements();
 
         yield return new WaitForSeconds(0.5f);
 
+        // ai checks requirements to upgrade to city
         UpgradeCity();
 
         yield return new WaitForSeconds(0.5f);
 
+        // ai attempts to build road with remaining resources
         CheckRoads();
 
         yield return new WaitForSeconds(0.5f);
 
         // round end
-        // all moves finished
+        // all moves finished, ai tells board manager to end turn
         if (diceRolled == true && placedRoads == true && placedSettlements == true && upgradedCity == true)
         {
             //Debug.Log(playerTag + " ended turn");
@@ -159,6 +169,20 @@ public class AIScript : MonoBehaviour
     // place roads if enough resource
     public void CheckRoads()
     {
+        // set color code
+        gameManager.setColorCode(((playerColor) + 1) % 4);
+
+        // build road if requirements are met
+        if (playerResources.CheckRoad() == true)
+        {
+            // placeroad if available
+            bPmanager.placeRoad();
+        }
+        else
+        {
+            Debug.Log(playerTag + " not enough resources for road");
+        }
+
         placedRoads = true;
     }
 
@@ -239,7 +263,7 @@ public class AIScript : MonoBehaviour
     public void CheckCards()
     {
         checkCards = false;
-        var resources = GameObject.FindWithTag(playerTag).GetComponent<PlayerResources>();
+        var resources = GameObject.FindWithTag(playerTag).GetComponent<PlayerResources>(); // finds resource script for player
 
         // remove cards if more than 7
         if (resources.GetTotalCards() > 7)
@@ -275,7 +299,8 @@ public class AIScript : MonoBehaviour
         // simulate click at position
         gameManager.AIClick(chooseLocation);
     }
-
+     
+    // dice rolling
     IEnumerator RollDice()
     {
         // roll dice from board manager
@@ -285,6 +310,7 @@ public class AIScript : MonoBehaviour
         yield return null;
     }
 
+    // ai picks starter settlements
     IEnumerator ChooseStarter()
     {
         isBusy = true;

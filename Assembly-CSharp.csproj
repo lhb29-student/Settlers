@@ -72,14 +72,14 @@
     <Compile Include="Assets\Scripts\Players.cs" />
     <Compile Include="Assets\Scripts\TerrainType.cs" />
     <Compile Include="Assets\Scripts\tokenManager.cs" />
-    <Compile Include="Assets\DiceSide.cs" />
+    <Compile Include="Assets\Scripts\DiceSide.cs" />
     <Compile Include="Assets\Scripts\Cards.cs" />
     <Compile Include="Assets\Scripts\HexMaterials.cs" />
     <Compile Include="Assets\Scripts\Habour.cs" />
     <Compile Include="Assets\Scripts\HexData.cs" />
     <Compile Include="Assets\Scripts\CardHand.cs" />
     <Compile Include="Assets\Scripts\PlayLongRoad.cs" />
-    <Compile Include="Assets\Dice.cs" />
+    <Compile Include="Assets\Scripts\Dice.cs" />
     <Compile Include="Assets\Scripts\placeToken.cs" />
     <Compile Include="Assets\Scripts\tokenData.cs" />
     <Compile Include="Assets\Scripts\HexGrid.cs" />

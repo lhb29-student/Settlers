@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class UserPlayer : MonoBehaviour
 {
-    [SerializeField] private List<Intersect> cIntersect;
-    [SerializeField] private List<Road> cRoad;
+
     [SerializeField] private int numOfKnights;
     [SerializeField] private int playerScore;
     [SerializeField] private int buildScore;
@@ -15,19 +14,24 @@ public class UserPlayer : MonoBehaviour
     [SerializeField] private int discardAmount;
     [SerializeField] private bool hasDiscarded = true;
 
-    [SerializeField] private PlayerResources playerResources;
-    [SerializeField] private BPmanager bPmanager;
-    [SerializeField] private BoardManager boardManager;
+    [SerializeField] private List<Intersect> cIntersect;
+    [SerializeField] private List<Road> cRoad;
+
     [SerializeField] private GameObject roadButton;
     [SerializeField] private GameObject settlementButton;
     [SerializeField] private GameObject cityUpgradeButton;
-    [SerializeField] private TMPro.TextMeshProUGUI woodButton;
-    [SerializeField] private TMPro.TextMeshProUGUI brickButton;
-    [SerializeField] private TMPro.TextMeshProUGUI woolButton;
-    [SerializeField] private TMPro.TextMeshProUGUI wheatButton;
-    [SerializeField] private TMPro.TextMeshProUGUI oreButton;
-    [SerializeField] private TMPro.TextMeshProUGUI discardText;
     [SerializeField] private GameObject discardMessage;
+    [SerializeField] private TMPro.TextMeshProUGUI woodButton; // wood amount display
+    [SerializeField] private TMPro.TextMeshProUGUI brickButton; // brick amount display
+    [SerializeField] private TMPro.TextMeshProUGUI woolButton; // wool amount display
+    [SerializeField] private TMPro.TextMeshProUGUI wheatButton; // wheat amount display
+    [SerializeField] private TMPro.TextMeshProUGUI oreButton; // ore amount display
+    [SerializeField] private TMPro.TextMeshProUGUI discardText; // test to tell user how many remaining cards to discard
+    // scripts
+    [SerializeField] private PlayerResources playerResources;
+    [SerializeField] private BPmanager bPmanager;
+    [SerializeField] private BoardManager boardManager;
+
 
 
     void Start()
@@ -37,6 +41,7 @@ public class UserPlayer : MonoBehaviour
         bPmanager = GameObject.Find("Land").GetComponent<BPmanager>();
         boardManager = GameObject.Find("Land").GetComponent<BoardManager>();
 
+        // discard message is only to be viewed by player
         if (gameObject.tag == "p1")
         {
             discardMessage.SetActive(false);
@@ -95,7 +100,7 @@ public class UserPlayer : MonoBehaviour
         }
     }
 
-    // controls appearance of buttons
+    // controls appearance of buttons, buttons become faded when unavailable
     public void UIControl()
     {
         // road button
@@ -162,30 +167,45 @@ public class UserPlayer : MonoBehaviour
     // settlement button interaction
     public void BuildSettlement()
     {
-        // builds settlement if player met requirements
-        if (playerResources.CheckSettlement() == true)
+        // only allowed to call when player's turn
+        if (boardManager.currentP == "p1")
         {
-            bPmanager.buildSettlement();
-            playerResources.SettlementCost();
+            // builds settlement if player met requirements
+            if (playerResources.CheckSettlement() == true)
+            {
+                bPmanager.buildSettlement();
+                playerResources.SettlementCost();
+            }
+            else
+            {
+                Debug.Log("lacking cost for settlement");
+            }
         }
         else
         {
-            Debug.Log("lacking cost for settlement");
+            Debug.Log("not player's turn");
         }
     }
 
     // city button interaction
     public void BuildCity()
     {
-        // builds city if player met requirements
-        if (playerResources.CheckCity() == true)
+        if (boardManager.currentP == "p1")
         {
-            bPmanager.setToCity();
-            playerResources.CityCost();
+            // builds city if player met requirements
+            if (playerResources.CheckCity() == true)
+            {
+                bPmanager.setToCity();
+                playerResources.CityCost();
+            }
+            else
+            {
+                Debug.Log("lacking cost for city");
+            }
         }
         else
         {
-            Debug.Log("lacking cost for city");
+            Debug.Log("not player's turn");
         }
     }
 

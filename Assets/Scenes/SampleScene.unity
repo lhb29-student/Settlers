@@ -490,8 +490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fcb0404af0e7d48a8497d2d8884d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cIntersect: []
-  cRoad: []
   numOfKnights: 0
   playerScore: 0
   buildScore: 0
@@ -499,19 +497,21 @@ MonoBehaviour:
   hasLargeArmy: 0
   discardAmount: 0
   hasDiscarded: 1
-  playerResources: {fileID: 0}
-  bPmanager: {fileID: 0}
-  boardManager: {fileID: 0}
+  cIntersect: []
+  cRoad: []
   roadButton: {fileID: 1697201220}
   settlementButton: {fileID: 805433552}
   cityUpgradeButton: {fileID: 469622261}
+  discardMessage: {fileID: 1142291834}
   woodButton: {fileID: 1310085083}
   brickButton: {fileID: 67537993}
   woolButton: {fileID: 323360308}
   wheatButton: {fileID: 1538056127}
   oreButton: {fileID: 645596119}
   discardText: {fileID: 577435249}
-  discardMessage: {fileID: 1142291834}
+  playerResources: {fileID: 0}
+  bPmanager: {fileID: 0}
+  boardManager: {fileID: 0}
 --- !u!4 &16393544
 Transform:
   m_ObjectHideFlags: 0
@@ -2737,6 +2737,7 @@ GameObject:
   - component: {fileID: 86963364}
   - component: {fileID: 86963365}
   - component: {fileID: 86963366}
+  - component: {fileID: 86963367}
   m_Layer: 0
   m_Name: Land
   m_TagString: Land
@@ -3131,6 +3132,20 @@ MonoBehaviour:
   nextBtn: {fileID: 1021967768}
   prevBtn: {fileID: 1648069392}
   useBtn: {fileID: 1245254266}
+--- !u!114 &86963367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86963358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe231f30279c50f41b256bfb7fe16e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceRoll: 11
+  HexGrid: {fileID: 0}
 --- !u!1 &96806356
 GameObject:
   m_ObjectHideFlags: 0
@@ -12118,8 +12133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fcb0404af0e7d48a8497d2d8884d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cIntersect: []
-  cRoad: []
   numOfKnights: 0
   playerScore: 0
   buildScore: 0
@@ -12127,19 +12140,21 @@ MonoBehaviour:
   hasLargeArmy: 0
   discardAmount: 0
   hasDiscarded: 1
-  playerResources: {fileID: 0}
-  bPmanager: {fileID: 0}
-  boardManager: {fileID: 0}
+  cIntersect: []
+  cRoad: []
   roadButton: {fileID: 0}
   settlementButton: {fileID: 0}
   cityUpgradeButton: {fileID: 0}
+  discardMessage: {fileID: 0}
   woodButton: {fileID: 0}
   brickButton: {fileID: 0}
   woolButton: {fileID: 0}
   wheatButton: {fileID: 0}
   oreButton: {fileID: 0}
   discardText: {fileID: 0}
-  discardMessage: {fileID: 0}
+  playerResources: {fileID: 0}
+  bPmanager: {fileID: 0}
+  boardManager: {fileID: 0}
 --- !u!4 &493570871
 Transform:
   m_ObjectHideFlags: 0
@@ -13398,8 +13413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fcb0404af0e7d48a8497d2d8884d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cIntersect: []
-  cRoad: []
   numOfKnights: 0
   playerScore: 0
   buildScore: 0
@@ -13407,19 +13420,21 @@ MonoBehaviour:
   hasLargeArmy: 0
   discardAmount: 0
   hasDiscarded: 1
-  playerResources: {fileID: 0}
-  bPmanager: {fileID: 0}
-  boardManager: {fileID: 0}
+  cIntersect: []
+  cRoad: []
   roadButton: {fileID: 0}
   settlementButton: {fileID: 0}
   cityUpgradeButton: {fileID: 0}
+  discardMessage: {fileID: 0}
   woodButton: {fileID: 0}
   brickButton: {fileID: 0}
   woolButton: {fileID: 0}
   wheatButton: {fileID: 0}
   oreButton: {fileID: 0}
   discardText: {fileID: 0}
-  discardMessage: {fileID: 0}
+  playerResources: {fileID: 0}
+  bPmanager: {fileID: 0}
+  boardManager: {fileID: 0}
 --- !u!4 &550820028
 Transform:
   m_ObjectHideFlags: 0
@@ -15061,7 +15076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &619032354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38473,7 +38488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1535581578
 Transform:
   m_ObjectHideFlags: 0
@@ -50142,8 +50157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fcb0404af0e7d48a8497d2d8884d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cIntersect: []
-  cRoad: []
   numOfKnights: 0
   playerScore: 0
   buildScore: 0
@@ -50151,19 +50164,21 @@ MonoBehaviour:
   hasLargeArmy: 0
   discardAmount: 0
   hasDiscarded: 1
-  playerResources: {fileID: 0}
-  bPmanager: {fileID: 0}
-  boardManager: {fileID: 0}
+  cIntersect: []
+  cRoad: []
   roadButton: {fileID: 0}
   settlementButton: {fileID: 0}
   cityUpgradeButton: {fileID: 0}
+  discardMessage: {fileID: 0}
   woodButton: {fileID: 0}
   brickButton: {fileID: 0}
   woolButton: {fileID: 0}
   wheatButton: {fileID: 0}
   oreButton: {fileID: 0}
   discardText: {fileID: 0}
-  discardMessage: {fileID: 0}
+  playerResources: {fileID: 0}
+  bPmanager: {fileID: 0}
+  boardManager: {fileID: 0}
 --- !u!4 &2028003381
 Transform:
   m_ObjectHideFlags: 0

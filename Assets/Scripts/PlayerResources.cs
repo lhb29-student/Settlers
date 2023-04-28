@@ -5,25 +5,26 @@ using UnityEngine;
 public class PlayerResources : MonoBehaviour
 {
 
-    [SerializeField] private int totalCards = 0;
-    [SerializeField] private int woodResource = 0;
-    [SerializeField] private int woolResource = 0;
-    [SerializeField] private int wheatResource = 0;
-    [SerializeField] private int oreResource = 0;
-    [SerializeField] private int brickResource = 0;
+    [SerializeField] private int totalCards = 0; // total
+    [SerializeField] private int woodResource = 0; // wood
+    [SerializeField] private int woolResource = 0; // wool
+    [SerializeField] private int wheatResource = 0; // wheat
+    [SerializeField] private int oreResource = 0; // ore
+    [SerializeField] private int brickResource = 0; // brick
 
+    // list to store resource count, used for determining which to discard when ai is asked to discard resources
     public List<int> resources;
 
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
+        // update total amount
         totalCards = woodResource + woolResource + wheatResource + oreResource + brickResource;
     }
 
+    // for players to check if requirements are met
+    // check methods compare requirements and resources player has
+    // cost methods remove the cost from player's resources and is called after the check methods return true
     public bool CheckRoad()
     {
         // check resource requirement
@@ -86,10 +87,12 @@ public class PlayerResources : MonoBehaviour
         oreResource -= 3;
     }
 
+    // called by ai script, cards are chosen and removed at random
     public void DiscardResource()
     {
         // store resource count
         resources = new List<int>();
+        // current player resource counts are stored in the list
         resources.Add(woodResource);
         resources.Add(woolResource);
         resources.Add(wheatResource);
@@ -116,7 +119,6 @@ public class PlayerResources : MonoBehaviour
                         break;
                     }
                 }
-                
             }
             //Debug.Log("discarding resource");
             resources[chooseDiscard]--;
